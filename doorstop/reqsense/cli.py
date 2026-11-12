@@ -1,9 +1,13 @@
 """The `doorstop analyze` command (ReqSense)."""
 
+import os
+import time
+
 from doorstop import common
 from doorstop.reqsense.ambiguity import detect_ambiguity
 from doorstop.reqsense.conflict import detect_conflicts
 from doorstop.reqsense.redundancy import detect_redundancy
+from doorstop.reqsense.report import render
 
 
 def add_parser(subs, shared):
@@ -42,6 +46,20 @@ def add_parser(subs, shared):
         default="heuristic",
         help="conflict technique: heuristic (baseline), nli (all pairs), sim+nli (tiered)",
     )
+    sub.add_argument(
+        "--format",
+        dest="report_format",
+        choices=["console", "md", "json"],
+        default="console",
+        help="report format",
+    )
+    sub.add_argument("-o", "--output", help="save the report to this file instead of printing it")
+    sub.add_argument(
+        "--fail-on",
+        default="none",
+        help="for CI: exit with an error if issues are found. none (default), any, "
+        "or a list of checks, e.g. conflict or ambiguity,conflict",
+    )
     return sub
 
 
@@ -76,8 +94,19 @@ def run_analyze(args, cwd, error, catch=True):
     return run(args, cwd, error, tree)
 
 
+def should_fail(fail_on, findings):
+    """Decide if the command should return an error code (used by CI pipelines)."""
+    if fail_on == "none":
+        return False
+    if fail_on == "any":
+        return len(findings) > 0
+    wanted = [c.strip() for c in fail_on.split(",")]
+    return any(f.check in wanted for f in findings)
+
+
 def run(args, cwd, error, tree):
     """Run the analysis. Return True if OK, False to make the command fail."""
+    start = time.perf_counter()
     requirements = get_requirements(tree, args.prefix)
     checks = [c.strip() for c in args.checks.split(",")]
 
@@ -94,12 +123,19 @@ def run(args, cwd, error, tree):
     conflict_pairs = {frozenset(f.uids) for f in findings if f.check == "conflict"}
     findings = [f for f in findings if not (f.check == "redundancy" and frozenset(f.uids) in conflict_pairs)]
 
-    # print the results
-    text_of = dict(requirements)  # uid -> text, to show the requirement next to each finding
-    for f in findings:
-        print(f"[{f.check.upper()}] {' <-> '.join(f.uids)}: {f.defect} [{f.score:.2f}, {f.stage}] {f.rationale}")
-        for uid in f.uids:
-            print(f"    {uid}: {text_of[uid]}")
-        print(f"    suggestion: {f.suggestion}")
-    print(f"\nReqSense: {len(findings)} issue(s) in {len(requirements)} requirements")
-    return True
+    stats = {
+        "seconds": round(time.perf_counter() - start, 2),
+        "embedder": args.embedder,
+        "conflict method": args.conflict_method,
+    }
+    report = render(findings, requirements, args.report_format, stats)
+
+    if args.output:
+        path = os.path.join(cwd, args.output)
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write(report)
+        print(f"ReqSense: report with {len(findings)} issue(s) saved to {path}")
+    else:
+        print(report, end="")
+
+    return not should_fail(args.fail_on, findings)  # False -> Doorstop exits with code 1
