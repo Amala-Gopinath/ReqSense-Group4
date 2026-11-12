@@ -2,6 +2,7 @@
 
 from doorstop import common
 from doorstop.reqsense.ambiguity import detect_ambiguity
+from doorstop.reqsense.conflict import detect_conflicts
 from doorstop.reqsense.redundancy import detect_redundancy
 
 
@@ -20,20 +21,26 @@ def add_parser(subs, shared):
     )
     sub.add_argument(
         "--checks",
-        default="ambiguity,redundancy",
-        help="which checks to run, comma separated: ambiguity,redundancy",
+        default="ambiguity,redundancy,conflict",
+        help="which checks to run, comma separated: ambiguity,redundancy,conflict",
     )
     sub.add_argument(
         "--embedder",
         choices=["tfidf", "sbert"],
         default="tfidf",
-        help="similarity technique for redundancy: tfidf (baseline) or sbert (AI model)",
+        help="similarity technique: tfidf (baseline) or sbert (AI model)",
     )
     sub.add_argument(
         "--redundancy-threshold",
         type=float,
         default=None,
         help="similarity (0-1) above which two requirements count as duplicates",
+    )
+    sub.add_argument(
+        "--conflict-method",
+        choices=["heuristic", "nli", "sim+nli"],
+        default="heuristic",
+        help="conflict technique: heuristic (baseline), nli (all pairs), sim+nli (tiered)",
     )
     return sub
 
@@ -79,11 +86,18 @@ def run(args, cwd, error, tree):
         findings += detect_ambiguity(requirements)
     if "redundancy" in checks:
         findings += detect_redundancy(requirements, args.embedder, args.redundancy_threshold)
+    if "conflict" in checks:
+        embedder = "sbert" if args.conflict_method == "sim+nli" else args.embedder
+        findings += detect_conflicts(requirements, args.conflict_method, embedder)
+
+    # A pair that CONTRADICTS each other is not a duplicate, even if the words are similar.
+    conflict_pairs = {frozenset(f.uids) for f in findings if f.check == "conflict"}
+    findings = [f for f in findings if not (f.check == "redundancy" and frozenset(f.uids) in conflict_pairs)]
 
     # print the results
     text_of = dict(requirements)  # uid -> text, to show the requirement next to each finding
     for f in findings:
-        print(f"[{f.check.upper()}] {' <-> '.join(f.uids)}: {f.defect} [{f.score:.2f}] {f.rationale}")
+        print(f"[{f.check.upper()}] {' <-> '.join(f.uids)}: {f.defect} [{f.score:.2f}, {f.stage}] {f.rationale}")
         for uid in f.uids:
             print(f"    {uid}: {text_of[uid]}")
         print(f"    suggestion: {f.suggestion}")
