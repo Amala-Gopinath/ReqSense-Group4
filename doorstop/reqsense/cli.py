@@ -1,6 +1,7 @@
 """The `doorstop analyze` command (ReqSense)."""
 
 from doorstop import common
+from doorstop.reqsense.ambiguity import detect_ambiguity
 
 
 def add_parser(subs, shared):
@@ -15,6 +16,11 @@ def add_parser(subs, shared):
         nargs="?",
         default="all",
         help="document to analyze, e.g. REQ (default: all documents)",
+    )
+    sub.add_argument(
+        "--checks",
+        default="ambiguity",
+        help="which checks to run, comma separated (for now: ambiguity)",
     )
     return sub
 
@@ -53,7 +59,18 @@ def run_analyze(args, cwd, error, catch=True):
 def run(args, cwd, error, tree):
     """Run the analysis. Return True if OK, False to make the command fail."""
     requirements = get_requirements(tree, args.prefix)
-    print(f"ReqSense: found {len(requirements)} requirements")
-    for uid, text in requirements:
-        print(f"  {uid}: {text}")
+    checks = [c.strip() for c in args.checks.split(",")]
+
+    findings = []
+    if "ambiguity" in checks:
+        findings += detect_ambiguity(requirements)
+
+    # print the results
+    text_of = dict(requirements)  # uid -> text, to show the requirement next to each finding
+    for f in findings:
+        print(f"{' <-> '.join(f.uids)}: {f.defect} [{f.score:.2f}] {f.rationale}")
+        for uid in f.uids:
+            print(f"    {uid}: {text_of[uid]}")
+        print(f"    suggestion: {f.suggestion}")
+    print(f"\nReqSense: {len(findings)} issue(s) in {len(requirements)} requirements")
     return True
