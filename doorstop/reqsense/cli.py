@@ -2,6 +2,7 @@
 
 from doorstop import common
 from doorstop.reqsense.ambiguity import detect_ambiguity
+from doorstop.reqsense.redundancy import detect_redundancy
 
 
 def add_parser(subs, shared):
@@ -19,8 +20,20 @@ def add_parser(subs, shared):
     )
     sub.add_argument(
         "--checks",
-        default="ambiguity",
-        help="which checks to run, comma separated (for now: ambiguity)",
+        default="ambiguity,redundancy",
+        help="which checks to run, comma separated: ambiguity,redundancy",
+    )
+    sub.add_argument(
+        "--embedder",
+        choices=["tfidf", "sbert"],
+        default="tfidf",
+        help="similarity technique for redundancy: tfidf (baseline) or sbert (AI model)",
+    )
+    sub.add_argument(
+        "--redundancy-threshold",
+        type=float,
+        default=None,
+        help="similarity (0-1) above which two requirements count as duplicates",
     )
     return sub
 
@@ -64,11 +77,13 @@ def run(args, cwd, error, tree):
     findings = []
     if "ambiguity" in checks:
         findings += detect_ambiguity(requirements)
+    if "redundancy" in checks:
+        findings += detect_redundancy(requirements, args.embedder, args.redundancy_threshold)
 
     # print the results
     text_of = dict(requirements)  # uid -> text, to show the requirement next to each finding
     for f in findings:
-        print(f"{' <-> '.join(f.uids)}: {f.defect} [{f.score:.2f}] {f.rationale}")
+        print(f"[{f.check.upper()}] {' <-> '.join(f.uids)}: {f.defect} [{f.score:.2f}] {f.rationale}")
         for uid in f.uids:
             print(f"    {uid}: {text_of[uid]}")
         print(f"    suggestion: {f.suggestion}")
