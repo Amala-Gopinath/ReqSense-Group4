@@ -10,6 +10,7 @@ from doorstop import common, server
 from doorstop.cli import utilities
 from doorstop.core import editor, exporter, importer, publisher
 from doorstop.core.builder import build
+from doorstop.reqsense.cli import run_analyze  # ReqSense: `doorstop analyze`
 
 log = common.logger(__name__)
 

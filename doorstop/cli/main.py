@@ -163,6 +163,7 @@ def main(args=None):  # pylint: disable=R0915
     _import(subs, shared)
     _export(subs, shared)
     _publish(subs, shared)
+    _analyze(subs, shared)
 
     # Parse arguments
     args = parser.parse_args(args=args)
@@ -548,6 +549,13 @@ def _publish(subs, shared):
         help="Generate top level index (when producing markdown).",
         action="store_true",
     )
+
+
+def _analyze(subs, shared):
+    """Configure the `doorstop analyze` subparser (ReqSense)."""
+    from doorstop.reqsense import cli as reqsense_cli
+
+    reqsense_cli.add_parser(subs, shared)
 
 
 if __name__ == "__main__":
