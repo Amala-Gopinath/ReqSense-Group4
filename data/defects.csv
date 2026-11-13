@@ -1,0 +1,132 @@
+id,text,label
+D001,The system can allow data for a single patient to be transferred on the users request.,optional
+D002,The system must be designed so users can learn the system on their own.,optional
+D003,The diagnosis code must be either NHC code ICPC code or a temporary code.,optional
+D004,The patient identity may be agreed upon by a number of means including demographic information agreed-to mapping of patient IDs or shared patient ID.,optional
+D005,The patient identity is dependent on whether the locator service is provided by a third-party or part of available community or regional services.,optional
+D006,The system will allow for submitting a test request to a physician or clinician.,optional
+D007,"The care coordinator considers whether the patient may require transfer to another care setting (e.g. rehabilitation, assisted living, home health) upon discharge.",optional
+D008,"The patient may determine the access permissions that should be granted to their list of providers for their personally controlled health information, as described in the Consumer Empowerment: 2007 Consumer Access to Clinical Information Detailed Use Case.",optional
+D009,"Care coordinators (such as Clinical Nurse Specialists, Home Health Nurses, Physical Therapists, Social Workers, Case Managers, Nurse Practitioners, and Discharge Planners in the hospital setting) may begin planning for discharge and transfer throughout the patients episode of care.",optional
+D010,The system can allow IT support to roll NHC data back to the previous version.,optional
+D011,When a user logs into his account and while prior setting are available the product shall allow users to choose existing settings or enter different settings.,optional
+D012,If a user wants to create an account and the desired username is occupied the user should be asked to choose a different username.,optional
+D013,The system will support optional SSL encryption.,optional
+D014,"A configuration message includes for each service a list with 0, 1, or more objects that are involved with the execution of the service.",optional
+D015,A user should be able to download the mobile application through either an application store or similar service on the mobile phone.,optional
+D016,The system shall detect when an operator-adaptable number of unsuccessful authentication attempts occur related to either log-in to any system account or initiate of a remote connection.,optional
+D017,The system must record the state of the diagnosis to be either considered valid or outdated.,optional
+D018,The system shall let a user who is an administrator or a project manager with the correct permissions and logged into the system to exit the review of time without either approving or rejecting it.,optional
+D019,Clinicians securely access lab test results either through an EHR system (local or remote) or a clinical data system.,optional
+D020,The data repository either sends the test results for integration into the clinicians EHR or sends the content to another clinical data system for viewing.,optional
+D021,The means of transport will vary depending on whether an EHR system is available to receive the results or if a web application is used.,optional
+D022,Queries to the locator service could be accomplished either through the EHR user interface directly or through another clinical data system.,optional
+D023,Patient identity may be agreed upon by a number of means including demographic information agreed-to mapping of patient IDs or shared patient ID.The means is dependent on whether the locator service is provided by a third-party or part of available community or regional services.,optional
+D024,The clinician and locator system must verify that they are interacting about the same patient. Patient identity may be agreed upon by a number means including demographic information agreed-to mapping of patient IDs or shared patient ID. The means is dependent on whether the locator service is provided by a third-party or part of available community or regional services. A set of traits (such as name DOB gender etc.) may be used by a locator service to perform a probabilistic match. ...,optional
+D025,The user shall either be trusted or not trusted.,optional
+D026,When viewing the results in a list a user should be able to sort the results according to price distance restaurant type specific dish or restaurant name.,optional
+D027,System will allow for submitting a test request to a physician or clinician,optional
+D028,The system shall allow the CAC or whoever is responsible for granting access to the CPRS GUI at each site to assign the appropriate access each time a new user is added to the system or if restricted access is needed for existing users.,optional
+D029,It may be possible that the consultation request may need to be processed as a referral.,optional
+D030,The consulting clinician may continue to provide care for or manage the patient with the consultation request.,optional
+D031,It may be possible that the consultation request may need to be processed as a referral and the consulting clinician may continue to provide care for or manage the patient.,optional
+D032,There shall be user interface that is remarkable and provides users a delightful experience on the website.,uncertain
+D033,The system shall return the greatest results.,uncertain
+D034,The system shall return supreme results.,uncertain
+D035,The system shall return minimal results.,uncertain
+D036,The system shall return littlest results.,uncertain
+D037,The bank is should have under maximum security.,uncertain
+D038,The client shall see maximum development.,uncertain
+D039,A user should have a distinct theme when they log in.,uncertain
+D040,There shall be a solution to add to the software.,uncertain
+D041,The account management system shall only be used by managers or users with defined privileges.,uncertain
+D042,Incomplete inaccurate or proprietarily-formatted information prevents efficient health information exchange activities or utilization of electronic health information.,uncertain
+D043,The care coordinator begins the transfer coordination process by communicating electronically the core set of data needed to determine whether the receiving setting can accept the patient.,uncertain
+D044,The care coordinator or clinician at the receiving setting receives a request to accept a patient. This request includes information that is critical to determining whether the receiving setting is able to accept the patient.,uncertain
+D045,The system must allow the user to correct mistakes easily.,uncertain
+D046,The system must contain a report generator that is easy to use.,uncertain
+D047,The system must use NHC data that is reasonably recent.,uncertain
+D048,The ACL system will be derived from the hierarchy in hospital/healthcare environments.,directive
+D049,Additional patient data must be found via health information exchange in the EHR.,directive
+D050,Additional patient data must be found via health information exchange in the EHR.,directive
+D051,System will implement Access Control List mechanism to obtain information security. ACL system will be derived from the hierarchy in hospital / healthcare environments,directive
+D052,The system must provide an overview of who has which rights and whether some rights have not been assigned to anyone.,non_atomic
+D053,Submit authentication: Establish clinicians identity and verify whether clinician is a provider of care.,non_atomic
+D054,The location pointers shall be used by the clinician to retrieve the lab test results for either viewing or integration into the EHR.,non_atomic
+D055,The system must ensure data is visible and typing is possible when moving from one screen to the next.,non_atomic
+D056,"The battery low warning lamp shall light up when the voltage drops below 3.6 Volts, and the current workspace or input data shall be saved.",non_atomic
+D057,"The system shall support mass emails to patients, and users shall be able to create standalone reports.",non_atomic
+D058,"The system shall support basic inventory management, and the users shall have a toolbar access to labs.",non_atomic
+D059,"The system shall generate alerts for prescription refills, and doctors shall approve requests.",non_atomic
+D060,The chart folder will store information on allergies and the doctor folder will hold a list of current medications.,non_atomic
+D061,The user shall be prompted to wait and the technician should be notified of the error.,non_atomic
+D062,The restaurant owner should register employees on the web-portal and users should be allowed to edit their personal information.,non_atomic
+D063,The database can be encrypted and the SSL shall be used to encrypt the communication between the client and the server.,non_atomic
+D064,The system shall allow the user to read the details of the tip and the user shall enter a review description.,non_atomic
+D065,"The system shall track cancellations, and the doctors shall be informed of cancellations.",non_atomic
+D066,The system will authenticate user via login and password and check which hospital department or ward the user belongs to.,non_atomic
+D067,The system must protect unintended user actions from causing the system to close down neither on the client nor on the server.,non_atomic
+D068,Based on the patient information provided by the clinician (either the entity identifier or demographic traits) a list of candidate patient matches will be retrieved from the locator service. This list should contain demographic data that will help the clinician determine which of the potential matches actually corresponds to the patient. ...,non_atomic
+D069,Send lab result location (links) pointers to authorized clinician: The location pointers will be used by the clinician to retrieve the lab test results for either viewing or integration into the EHR.,non_atomic
+D070,A user should be able to input a maximum and a minimum price range a maximum and a minimum distance according to his/her position a restaurant type or a specific dish.,non_atomic
+D071,System will authenticate user via login and password and check which hospital department or ward user belongs to,non_atomic
+D072,In order to coordinate transfer of care patient information is sent to a facility or provider to determine its ability to accept the patient. If a setting determines that it is not able to accept the patient data may still be accessed by this setting.,non_atomic
+D073,The care coordinator identifies the environment from which the patient originated (home nursing home etc.) and considers whether the patient may require transfer to another care setting (e.g. rehabilitation assisted living home health) upon discharge.,non_atomic
+D074,The patient may create and/or update their list of providers.,non_atomic
+D075,The clinician discusses the need and reason for consultation with the patient.,non_atomic
+D076,The consulting clinician may review patient data evaluate the patient and perform medication reconciliation for any modified medications as stated in the 2007 Medication Management Use Case.,non_atomic
+D077,The patient may create and/or update their list of providers and determine the access permissions that should be granted to those providers for their personally controlled health information as described in the Consumer Empowerment: 2007 Consumer Access to Clinical Information Detailed Use Case.,non_atomic
+D078,The patient is evaluated by the consulting clinician and receives care/treatment as directed.,non_atomic
+D079,The system must be able to show an overview and forecast of the bed occupation.,non_atomic
+D080,The system must be designed to operate the system with keyboard only.,ambiguous
+D081,The system must require a password only if the system has been logged out automatically.,ambiguous
+D082,When a new/updated version or release of the software is released the user should check for these manually.,ambiguous
+D083,A set of traits (such as name DOB gender etc.) may be used by a locator service to perform a probabilistic match.,ambiguous
+D084,"For every action done with a patient system will have a record in the data, the user viewed/modified/created.",ambiguous
+D085,The system will allow for storing patient images or photos.,ambiguous
+D086,The system will allow for storing encounter images or photos.,ambiguous
+D087,Incomplete information should prevent efficient health information exchange activities or utilization of electronic health information.,ambiguous
+D088,Patient information must be sent to a facility or provider to determine its ability to accept the patient.,ambiguous
+D089,Patient data should be still available in receiving settngs when the patients' data is not accepted.,ambiguous
+D090,The receiving setting request should include information that is critical to determining whether the receiving setting is able to accept the patient.,ambiguous
+D091,"The system doesn't allow you to delete any health information, but certain objects can be marked as ""deleted"" though still present in the underlying data set.",ambiguous
+D092,The system must keep a list of those users at all times.,ambiguous
+D093,Both users and admins must use MFA.,ambiguous
+D094,The messages should be encrypted for login communications so others cannot get username and password from those messages.,ambiguous
+D095,The restaurant owner should be notified about login failure.,ambiguous
+D096,The admin should be notified about login failure.,ambiguous
+D097,The system will implement Access Control List mechanism to obtain information security.,ambiguous
+D098,"During this phase, the system will scan the crossing area in order to establish whether any obstacles are present.",ambiguous
+D099,The Patron information report shall be generated by users who have a librarian account.,ambiguous
+D100,Forms will provide support for checking input format.,ambiguous
+D101,The care coordinator or clinician at the receiving setting receives a request to accept a patient.,ambiguous
+D102,Needs to use minimal system requirements.,ambiguous
+D103,Then the restaurant owner should be able to manage information in a form such as restaurant and menu information.,ambiguous
+D104,System will allow for storing patient images or photos,ambiguous
+D105,System will allow for storing encounter images or photos,ambiguous
+D106,"The system allows certain objects to be marked as ""deleted"" but still present in the underlying data set.",ambiguous
+D107,"When the user enters more than 15 characters while choosing the password, an error message shall ask the user to correct it.",ambiguous
+D108,Access additional patient data via health information exchange in the EHR.,ambiguous
+D109,"System doesn't allow you to delete any health information though certain objects can be """"marked as deleted"""" though still present in the underlying data set'""""",ambiguous
+D110,If required the requesting clinician may also include items needed for payor approval of the consultation such as an authorization number referral valid end date and/or authorization signature.,ambiguous
+D111,The clinician and care coordinators begin the discharge documentation process which includes information such as transfer coordination and plan of care information.,ambiguous
+D112,The system must be able to show all reports on the screen as well as on print.,ambiguous
+D113,The system must provide for the possibility for third-party expansion of the system.,ambiguous
+D114,The system shall return maximum results.,non_measurable
+D115,The system should not reach the maximum threshold.,non_measurable
+D116,The user shall experenice supreme speed.,non_measurable
+D117,The passwords should have multiple levels of protection.,non_measurable
+D118,The system shall have an optimal response time for the end-user.,non_measurable
+D119,The system shall produce a plan optimized for time.,non_measurable
+D120,The user should not have to wait a long time for a transaction.,non_measurable
+D121,The system should allow multiple users to login concurrently.,non_measurable
+D122,The output of the program shall usually be given within 10 seconds.,non_measurable
+D123,The system can periodically transfer data from the new system.,non_measurable
+D124,The system must not slow down the users typing speed when moving from one field to the next.,non_measurable
+D125,A user should be able to search the application as much as possible.,non_measurable
+D126,A client shall have to intervene with a customer as little as possible.,non_measurable
+D127,When a new/updated version or release of the software is released the user should check for these as much as possible.,non_measurable
+D128,System will allow for creating bills as much as possible.,non_measurable
+D129,The consulting clinician provides care for the patient and documents patient encounter(s) in the EHR as much as possible.,non_measurable
+D130,When updating the system make sure to change the interface as little as possible.,non_measurable
+D131,Upon reviewing patient data received the receiving is able to accept the patient and notifies the discharging/transferring as much as possible.,non_measurable

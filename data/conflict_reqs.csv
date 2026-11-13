@@ -1,0 +1,469 @@
+id,text,dataset
+P2-001,The look and feel of the system shall conform to the user interface standards of the smart device.,P2
+P2-002,The user interface shall have standard menus buttons for navigation,P2
+P2-003,The system shall have a professional appearance,P2
+P2-004,The product shall have a consistent color scheme and fonts.,P2
+P2-005,The system shall be used by realtors with no training.,P2
+P2-006,The system shall be intuitive and self explanatory.,P2
+P2-007,The product shall be easy for a realtor to learn.,P2
+P2-008,The product shall use symbols and words that are naturally understandable by the realtor community.,P2
+P2-009,The product shall produce search results in an acceptable time,P2
+P2-010,The search results shall be returned no later 30 seconds after the user has entered the search criteria,P2
+P2-011,The product shall generate a CMA report in an acceptable time.,P2
+P2-012,The CMA report shall be returned no later 60 seconds after the user has entered the CMA report criteria.,P2
+P2-013,The product shall synchronize contacts and appointments in an acceptable time.,P2
+P2-014,The product shall synchronize with the office system every hour.,P2
+P2-015,The product shall be available for use 24 hours per day 365 days per year,P2
+P2-016,Out of 1000 accesses to the system the system is available 999 times.,P2
+P2-017,The product shall operate in offline mode whenever internet connection is unavailable.,P2
+P2-018,The product shall allow the user to view previously downloaded search results CMA reports and appointments.,P2
+P2-019,The product shall retain user preferences in the event of a failure.,P2
+P2-020,100% of saved user preferences shall be restored when system comes back online.,P2
+P2-021,The product shall be able to support multiple remote users,P2
+P2-022,The product shall be able support 1000 simultaneous users.,P2
+P2-023,The product shall be capable of handling the existing 1000 users. This number is expected to grow 5 times within the next year.,P2
+P2-024,The product shall be installed by an untrained realtor without recourse to separately-printed instructions.,P2
+P2-025,90% of untrained realtors shall be able to install the product on their device without printed instructions,P2
+P2-026,Only registered realtors shall be able to access the system.,P2
+P2-027,Every user of the system shall be authenticated and authorized.,P2
+P2-028,The product shall prevent its data from incorrect data being introduced.,P2
+P2-029,The system shall allow a real estate agent to query MLS information,P2
+P2-030,The user shall be able to get driving directions to a selected property,P2
+P2-031,The user shall be able to download appointments and contact information for clients,P2
+P2-032,The system shall display clear property images in the search results,P2
+P2-033,The system shall update or create new property listings in the MLS,P2
+P2-034,Realtor shall be able to generate a CMA report based on property criteria,P2
+P2-035,The system shall be able to call the seller or buyer to schedule an appointment,P2
+P2-036,The realtor shall be notified of new client appointments after automatic synchronization with office system,P2
+P2-037,The realtor shall be able to retrieve a map showing property locations for a specified area,P2
+P2-038,The system shall notify the realtor when a seller or buyer responds to an appointment request,P2
+P2-039,The product shall allow the user to save the property search results.,P2
+P2-040,The system shall save all posted properties in MLS listing in the local database,P2
+P2-041,"Once a property is posted on MLS listing, it must be saved in the global database.",P2
+P2-042,The system shall prevent any appointments made less than 24 hours.,P2
+P2-043,The system shall not accept property posting without images.,P2
+P2-044,The buyer shall be able to view all MLS listings,P2
+P2-045,The agent shall be able to lookup and update property listings in the MLS,P2
+P2-046,"The system shall generate all the MLS numbers based on three criterias date, zone, and zip code.",P2
+P2-047,The system shall allow a buyer remove MLS listing from his or her listing set.,P2
+P2-048,Buyer shall be able to generate a Comparative Market Analysis (CMA) report based on property criteria,P2
+P2-049,The system shall update all MLS listing properties once a day.,P2
+P2-050,The system shall retrieve new raw data for Comparative Market Analysis (CMA) everytime a new house is sold in a given area,P2
+P2-051,Only the seller agent shall be able to marked an under contract MLS listing as sold.,P2
+P2-052,The agent shally be able to add new clients to the systems using their client ID,P2
+P2-053,"If the property is saved in the local database, it will not be saved in the global database",P2
+P2-054,The system shall stop sending notifcations for appointments made less than 24 hours,P2
+P2-055,MLS property posts without images shall be removed after 30 days.,P2
+P2-056,The buyer agent shall make only MLS listing that match the buyers criteria visible to the buyer.,P2
+P2-057,The administrator shall create an access right for the agent that would allow the agent only view the MLS listings that are in his or her zone,P2
+P2-058,Relisting a previously sold house can reuse the same MLS number.,P2
+P2-059,The buyer has only view right to all MLS listing and cannot modify the listings in his or her set.,P2
+P2-060,Only realators shall have access to CMA analysis and report generation,P2
+P2-061,The system shall update all MLS listing properties at midnight each Saturday.,P2
+P2-062,The system shall retrieve the raw data for Comparative Market Analysis (CMA) once a week.,P2
+P2-063,The system automatically change the status of under contract listing as sold once the case is closed.,P2
+P2-064,The agent shally not be able to add new clients to the systems using their client ID,P2
+P2-065,The agent shall be able to lookup and update any property listings in the MLS,P2
+P6-001,The product must work with most database management systems (DBMS) on the market whether the DBMS is colocated with the product on the same machine or is located on a different machine on the computer network.,P6
+P6-002,The product will function alongside server software on any operating system where the Java runtime can be installed.,P6
+P6-003,The product will require collaboration with a database management system (DBMS). The DBMS may be located on the same machine as the product or on a separate machine residing on the same computer network.,P6
+P6-004,The product must make use of web/application server technology. Open source examples include Apache web server Tomcat and the JBoss application server.,P6
+P6-005,A database management system such as Oracle DB2 MySql or HSQL will need to be integrated with the product.,P6
+P6-006,The product_x0092_s Look and Feel shall be able to incorporate aspects of the customer_x0092_s organization such as logo branding and identity,P6
+P6-007,The product shall have a conservative and professional appearance.,P6
+P6-008,The product shall make the users want to use it. 80% of the users surveyed report they are regularly using the product after the first 2 weeks post-launch.,P6
+P6-009,The product shall be easy to use. 90% of users will be able to successfully reserve a conference room within 5 minutes of product use.,P6
+P6-010,The product shall give users feedback when necessary. 80% of the users surveyed report that the product accurately confirms their actions.,P6
+P6-011,The product shall allow the user to select a chosen language from one of the target market countries.,P6
+P6-012,The product shall allow for customization of start page and views preferences.,P6
+P6-013,An employee will be able to successfully use the product within a few minutes. After informally navigating the product for less than 15 minutes users shall be able to successfully setup meetings and reserve conference rooms.,P6
+P6-014,The product shall use a standard navigation menu familiar to most web users.,P6
+P6-015,The product shall allow for intuitive searching of available conference rooms.,P6
+P6-016,The product shall conform to the Americans with Disabilities Act.,P6
+P6-017,The response shall be fast enough to avoid interrupting the user_x0092_s flow of thought. 90% of tasks shall complete within 5 seconds. 98% of tasks shall complete within 8 seconds.,P6
+P6-018,Aside from server failure the software product shall achieve 99.99% up time.,P6
+P6-019,The product shall create an exception log of problems encountered within the product for transmission to our company for analysis and resolution.,P6
+P6-020,The product shall be capable of handling up to 1 000 concurrent requests. This number will increase to 2 000 by Release 2. The concurrency capacity must be able to handle peak scheduling times such as early morning and late afternoon hours.,P6
+P6-021,The product shall be able to process 10 000 transactions per hour within two years of its launch. This number will increase to 20 000 by Release 2.,P6
+P6-022,The product shall be expected to operate for at least 5 years for each customer installation.,P6
+P6-023,The product shall be used in office environments.,P6
+P6-024,The product must be able to interface with any HTML browser. The product shall transmit data between the user and the product without problems. The product shall display HTML properly in 80% of all HTML browsers tested (minimum is to test 8 browsers).,P6
+P6-025,The product must be able to interface with various database management systems. The product shall communicate successfully with the database management system on 100% of all transactions.,P6
+P6-026,The product must be able to interface with various email servers. The product shall be able to send email.,P6
+P6-027,The product shall be available for distribution via the Internet as a binary or ZIP file.,P6
+P6-028,The product shall be available for distribution as a packaged CD.,P6
+P6-029,The product will be available for licensing as a one-server two-five servers or five-or-more servers license.,P6
+P6-030,A new user must be able to be added to the system within 10 minutes. 90% of new users are able to log into the system within 10 minutes.,P6
+P6-031,The product must be designed using Design Patterns and coding best practices. 90% of maintenance software developers are able to integrate new functionality into the product with 2 working days.,P6
+P6-032,The product must be highly configurable for use with various database management systems for the end users. 80% of end users are able to integrate new database management systems with the product without changing the product_x0092_s software code.,P6
+P6-033,Maintenance releases will be offered to customers once a year. The releases shall take no longer than 5 minutes for 80% of the customer base to install.,P6
+P6-034,Every registered user will have access to the product_x0092_s support site via the Internet. 70% of registered users shall find a solution to their problem within 5 minutes of using the support site.,P6
+P6-035,The customer shall be able to easily integrate new building maps with the product throughout the product_x0092_s lifecycle. Integration of new maps with the product shall be possible with little to no support from product support staff.,P6
+P6-036,The product shall be translated into foreign languages other than the target market countries_x0092_ languages in future releases. For each emerging target market it shall take no more than 5 days to configure the product for that market_x0092_s language.,P6
+P6-037,The product is expected to integrate with multiple database management systems. The product will operate with Oracle SQL Server DB2 MySQL HSQL and MS Access.,P6
+P6-038,The product shall be able to be installed in any operating environment within 2 days.,P6
+P6-039,The product shall ensure that only company employees or external users with company-approved user IDs may have product access. 100% of all logons shall be by either company employees or external users with company-approved user IDs.,P6
+P6-040,Only managers are able to perform search queries for reservations by user. 100% of all search queries for reservations by user shall be from logons of only management logons.,P6
+P6-041,The product shall ensure that the database_x0092_s data corresponds to the data entered by the user. Each conference room reservation in the system will contain the same information as was entered by the user.,P6
+P6-042,The product shall prevent the input of malicious data. The product and/or adjacent hardware/software systems_x0092_ data shall remain 100% uncorrupted each time malicious data is input into the product.,P6
+P6-043,The product and/or dependent databases/filesystems shall remain operational as a result of the input of malicious data. The product and/or dependent databases/filesystems shall not crash 100% of the time that malicious data is input into the product.,P6
+P6-044,The product shall have the ability to receive automatic software updates as new threats emerge. 100% of customers will be able to receive automatic software updates transmitted to the installed product.,P6
+P6-045,The language of the product shall accommodate all of the target market countries. 90% of survey respondents from each target market country will find that the language of the product is acceptable.,P6
+P6-046,The product shall be able to display calendar dates and times according to the user_x0092_s locale. 90% of survey respondents from each target market country will find that the date and time formatting of the product is correct.,P6
+P6-047,The product must be developed with the J2SE/J2EE programming language libraries,P6
+P6-048,The product shall record meeting entries.,P6
+P6-049,The product will notify employees of meeting invitations.,P6
+P6-050,The product shall have the ability to send meeting reminders to employees.,P6
+P6-051,The product shall assign the organizers contact information to each meeting they create.,P6
+P6-052,The product will record meeting acknowledgements.,P6
+P6-053,The product shall store new conference rooms.,P6
+P6-054,The product shall update existing conference rooms.,P6
+P6-055,The product will be able to delete conference rooms.,P6
+P6-056,The product shall be able to store new room equipment.,P6
+P6-057,The product will update existing room equipment.,P6
+P6-058,The product shall be able to delete room equipment.,P6
+P6-059,The product shall allow an organizer to invite other employees to meetings.,P6
+P6-060,Each time a conference room is reserved the conference room schedule shall be updated to reflect the time and date of the reservation.,P6
+P6-061,The product shall record the transportation status of equipment reserved.,P6
+P6-062,The product shall display a map of the company building showing conference room locations.,P6
+P6-063,The product shall record updated meeting agendas.,P6
+P6-064,The product shall send a meeting confirmation to the meeting organizer.,P6
+P6-065,The product shall display room equipment according to search parameters.,P6
+P6-066,The product shall display conference rooms according to search parameters.,P6
+P6-067,The product shall record different meeting types.,P6
+P6-068,The product shall record all the equipment that has been reserved.,P6
+P6-069,The product shall notify building personnel of equipment transport requests.,P6
+P6-070,The product will allow priviledged users to view meeting schedules in multiple reporting views.,P6
+P6-071,The product shall be able to send meeting notifications via different kinds of end-user specified methods.,P6
+P6-072,The product shall have a customizable Look and Feel.,P6
+P6-073,The product shall have an intuitive user interface.,P6
+P6-074,The product will display an available status for unreserved conference rooms.,P6
+P6-075,Conference room reservation must be automatically added to the user's calendar,P6
+P6-076,Conference room reservation must be emailed as calendar invite to the user,P6
+P6-077,The product shall prevent the input of malicious data.,P6
+P6-078,The product will display a list of room equipment to employees.,P6
+P6-079,The product shall support languages of the five target market countries.,P6
+P6-080,The product will allow regular employees to view meeting schedules of each user.,P6
+P6-081,A new user must be able to be added to the system within 10 minutes.,P6
+P6-082,The product shall convert the reservation time to the user's local time.,P6
+P6-083,"If a a conference room reservation is already added to the user's calander, It shall not be emailed to the user.",P6
+P6-084,The product and/or adjacent hardware/software systems_x0092_ data shall remain 100% uncorrupted each time malicious data is input into the product.,P6
+P6-085,The product and/or dependent databases/filesystems shall remain operational as a result of the input of malicious data.,P6
+P6-086,The product and/or dependent databases/filesystems shall not crash 100% of the time that malicious data is input into the product.,P6
+P6-087,Meeting invitations may only be shown to managers.,P6
+P6-088,Room equipment may only be shown to managers.,P6
+P6-089,The product shall allow the user to select a chosen language from a country other than the target market countries.,P6
+P6-090,Only managers are able to perform search queries for reservations by user.,P6
+P6-091,100% of all search queries for reservations by user shall be from logons of only management logons.,P6
+P6-092,Software updates will be offered to customers once a year. The updates shall take no longer than 5 minutes for 80% of the customer base to install.,P6
+P6-093,An employee will be able to successfully use the product within a few minutes. After informally navigating the product for less than 15 minutes users shall be able to successfully reserve conference rooms.,P6
+P6-094,90% of new users are able to log into the system within 10 minutes.,P6
+P6-095,The product shall not convert the reservation time to the user's local time.,P6
+P10-001,The product shall simulate the look of ships at sea.,P10
+P10-002,The product shall display the grids within a circle as a view from a periscope.,P10
+P10-003,The product shall display each type of ship in a grid using an image of the specific type of ship.,P10
+P10-004,When the offensive player takes a shot the product shall simulate the sound of a ship at sea.,P10
+P10-005,When a shot is marked as a miss the product shall simulate the sound of a shot missing its target.,P10
+P10-006,When a shot is marked as a hit the product shall simulate the sound of a shot hitting its target.,P10
+P10-007,When a ship is sunk the product shall simulate the sound of a sinking ship.,P10
+P10-008,The product shall be available 24 hours per day seven days per week.,P10
+P10-009,The product shall able to handle a large number of games simultaneously.,P10
+P10-010,The response time shall be fast enough to maintain the flow of the game. The response time shall be no more than 2 seconds for 95% of responses and no more than 4% for the remaining responses.,P10
+P10-011,The product shall protect the identity of the players. The product shall provide players no access to information that might reveal the identity of another player.,P10
+P10-012,The product shall be intuitive and self-explanatory. Nine out ten users shall be able to successfully complete a game with no training.,P10
+P10-013,The product shall be available to players who understand English Spanish and French. The product shall allow the user to select the language upon accessing the product.,P10
+P10-014,The product shall provide players no access to information that might reveal the identity of another player,P10
+P10-015,The response time shall be fast enough to maintain the flow of the game. The response time shall be no more than 2 seconds for 95% of responses and no more than 4% for the remaining responses.,P10
+P10-016,The product shall maintain a list of players.,P10
+P10-017,The product shall allow a user to identify himself or herself as a player.,P10
+P10-018,Once a game has been initiated the product shall make the players assigned to the game unavailable for selection from the list of players.,P10
+P10-019,The product shall allow a user to remove himself or herself from the list of players at any time.,P10
+P10-020,The product shall make inactive players unavailable for selection from the list of players.,P10
+P10-021,The product shall allow a player to initiate a game by selecting another available player from the list of players.,P10
+P10-022,Once a game is initiated the product shall display a defensive grid to each player,P10
+P10-023,Once a game is initiated the product shall display an offensive grid to each player.,P10
+P10-024,The product shall prevent a player from viewing the offensive or defensive grids of the other player.,P10
+P10-025,Once a game is initiated the product shall allow each player to position their 5 ships on their respective defensive grids.,P10
+P10-026,The product shall allow a player to position ships horizontally on their grid.,P10
+P10-027,The product shall allow the player to position ships vertically on their grid.,P10
+P10-028,The product shall allow the player to position ships diagonally on their grid,P10
+P10-029,The product shall prevent the player from overlapping ships on their grid.,P10
+P10-030,When both players have positioned their 5 ships on their defensive grids the product shall define the status of each player for the first turn.,P10
+P10-031,For each turn the product shall identify one player as offensive status and one player as defensive status.,P10
+P10-032,The product shall maintain the status of each player for a turn either offensive or defensive.,P10
+P10-033,At the start of each turn the product shall notify each player of his or her status.,P10
+P10-034,For each turn the product shall allow the offensive player to define a shot.,P10
+P10-035,For each shot the product shall examine the defensive grid of the defensive player to determine whether the shot was a hit or miss.,P10
+P10-036,For each shot the product shall notify the players whether the shot was a hit or miss.,P10
+P10-037,For each shot the product shall mark the shot as a hit or miss on the defensive grid of the defensive player.,P10
+P10-038,For each shot the product shall mark the shot as a hit or miss on the offensive grid of the offensive player.,P10
+P10-039,When the hit results in sinking a ship the product shall notify the players that the ship was sunk.,P10
+P10-040,When the hit results in sinking a ship the product shall mark the ship as sunk on the defensive grid of the defensive player.,P10
+P10-041,When the hit results in sinking a ship the product shall indicate the type of ship sunk on the defensive grid of the defensive player.,P10
+P10-042,When the hit results in sinking a ship the product shall mark the ship as sunk on the offensive grid of the offensive player.,P10
+P10-043,If the shot was marked as a hit the product shall allow the offensive player to define a shot.,P10
+P10-044,If the shot was marked as a miss the product shall change the status of the offensive player to defensive,P10
+P10-045,If the shot was marked as a miss the product shall change the status of the defensive player to offensive,P10
+P10-046,The product shall continue to assign turns until the game is ended.,P10
+P10-047,The product shall end a game when a hit by the offensive player results in sinking the last of the defensive player_x0092_s ships which had not been previously marked as sunk.,P10
+P10-048,The product shall allow a player to end a game at any time during the game.,P10
+P10-049,When a game is ended the product shall notify the players that the game is ended.,P10
+P10-050,The notification of the game ending will include the reason the game is ended (i.e. a player has won the game or a player has ended the game).,P10
+P10-051,When a game is ended the product shall allow each player to identify himself or herself as an available player in the list of players.,P10
+P10-052,When a game is ended the product shall allow each player to remove himself or herself from the list of players.,P10
+P10-053,The gaming platform shall allow users to send in-game chat messages to other players at any time.,P10
+P10-054,The gaming platform shall provide voice chat functionality for players to communicate at anytime they want during gameplay.,P10
+P10-055,The product shall prevent the defensive player from taking a shot on the map.,P10
+P10-056,The product shall allow the user to select a language upon accessing the product.,P10
+P10-057,Each player may take only one shot per turn,P10
+P10-058,The product shall allow a player to view other players information,P10
+P10-059,"If a player is using voice chat, they will not receive in-game chat messages.",P10
+P10-060,"If the player places their ship on a gridspace already occupied by another ship, the overlapping ship should blink until moved.",P10
+P10-061,"If the defensive player takes a shot on the map, the shot shall be removed and not cause any damage to the opponent's ships.",P10
+P10-062,Players shall be identified only by game administrators.,P10
+P10-063,The list of players shall randomly assign players with which to initiate a game.,P10
+P10-064,The product shall be available to players who understand English Spanish and French.,P10
+P10-065,If the shot was marked as a hit the product shall allow the offensive player to define another shot.,P10
+P10-066,"The product shall maintain a list of players, identifying them by their name.",P10
+P10-067,Once a game is initiated the product shall allow each player to position their 5 ships anywhere on their respective defensive grids.,P10
+P10-068,The product shall allow a player to end a game only on his turn during the game.,P10
+P10-069,The product shall not allow a player to view other players information,P10
+Broker-001,"After three continued failed login attempts, the account would be locked by the system. •",Broker
+Broker-002,"Once the account is locked, the system sends an account lock notification email to the account’s owner.",Broker
+Broker-003,"Once an account is locked, the system would also send a SMS message to the account’s owner to notify him about the situation owner",Broker
+Broker-004,"If a user has already received a notification via email, he will not receive the same notification via SMS.",Broker
+Broker-005,The system shall invoice broker accounts once per year using CDR.,Broker
+Broker-006,The system shall invoice broker accounts once per month using CDR.,Broker
+Broker-007,It shall be forbidden to delete invoices issued.,Broker
+Broker-008,A broker should be able to delete his own subscribers’ accounts and associated data,Broker
+Broker-009,Invoices shall only be stored in a subscriber account,Broker
+Broker-010,It shall be forbidden for PBX accounts to have virtual circuits.,Broker
+Broker-011,The system shall deactivate virtual circuits for PBX accounts that do not pay for the service.,Broker
+Broker-012,The broker shall be able to access the rate table,Broker
+Broker-013,"Only the administrator shall have access to the rate table, and he/she shall create an access list for brokers based on the rate table.",Broker
+Broker-014,The system shall automatically assign unique identification numbers to all registered users.,Broker
+Broker-015,Users shall have the option to customize the prefix of their own identification numbers and choose a user defined prefix.,Broker
+Broker-016,"The system shall send email notifications to brokers and subscribers for invoice generation, approval requests, and payment reminders.",Broker
+Broker-017,The system shall integrate with a payment gateway to facilitate online payments for generated invoices.,Broker
+Broker-018,Payment history and status shall be recorded and accessible to authorized users.,Broker
+Broker-019,"The system shall maintain an audit trail of all user actions, including account deletions, invoice modifications, and rate table access.",Broker
+Broker-020,"The system shall provide reporting and analytics features, allowing administrators and brokers to analyze invoice data, payment trends, and subscriber usage patterns.",Broker
+Broker-021,The system shall support invoicing and payments in multiple currencies if required.,Broker
+Broker-022,"Monthly automated data backups shall be performed, and a data recovery plan shall be in place in case of system failures or data loss.",Broker
+Broker-023,"If required, the system shall provide integration capabilities with Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP) systems used by brokers.",Broker
+Broker-024,"Brokers shall have the option to generate invoices in bulk for multiple subscribers simultaneously, streamlining the billing process.",Broker
+Broker-025,The system shall offer integration capabilities with popular accounting software to simplify financial record-keeping for brokers.,Broker
+Broker-026,"Brokers shall have access to a personalized dashboard that provides an overview of their account status, including earnings, subscriber activity, and invoice statistics.",Broker
+Broker-027,"The system shall calculate and display broker commissions for each successfully paid invoice, allowing brokers to track their earnings.",Broker
+Broker-028,"Brokers shall have the option to set credit limits for their subscribers, preventing over-usage and unpaid bills.",Broker
+Broker-029,"In cases of severe policy violations or non-compliance, administrators shall have the authority to permanently terminate broker accounts.",Broker
+Broker-030,Administrators shall have the authority to temporarily suspend broker accounts in cases of suspected fraudulent activity or policy violations.,Broker
+Broker-031,"The system shall provide a registration process for new brokers, including verification of their credentials and approval by administrators.",Broker
+Broker-032,The brokers shall not modify data in closed accounts,Broker
+Broker-033,The system shall run an audit of all accounts once per month,Broker
+Broker-034,Audit of all accounts shall be performed once every week.,Broker
+Broker-035,The system shall prevent creation of accounts from foreign countries.,Broker
+Broker-036,The system shall stop foreign accounts that have been inactive for more than three months,Broker
+Broker-037,The broker shall be able to print the entire rate table from within the system,Broker
+Broker-038,The broker shall be able to modify a new subscription account.,Broker
+Broker-039,The broker shall be able to assign a user specified number for a new subscription account,Broker
+Broker-040,It shall be forbidden to delete invoices.,Broker
+Broker-041,The system shall highlight overdue invoices in the dashboard,Broker
+Broker-042,A broker should be able to delete his own subscribers’ accounts and associated invoices,Broker
+Broker-043,The system shall not highlight overdue invoices in the dashboard,Broker
+Broker-044,The system automatically create unique number for subscription acount at the time of enrolment.,Broker
+Broker-045,A broker should be able to revise data in all of previously closed accounts.,Broker
+ETCS-001,The current operational status shall be indicated to the driver on the DMI,ETCS
+ETCS-002,The current application level shall be indicated on the DMI.,ETCS
+ETCS-003,"Basic track to train and train to track information via continuous transmission media, i.e. radio. The train detection is provided by trackside",ETCS
+ETCS-004,"The driver shall acknowledge the level transitions, if requested from trackside. If the driver does not acknowledge after the transition the brake shall be applied. If the driver acknowledges afterwards, the brake can be released",ETCS
+ETCS-005,"For transitions to and from national Operation (STM) the ETCS shall request, an acknowledgement by the driver.",ETCS
+ETCS-006,ETCS shall be compatible with existing national systems listed in the CCS TSI such that it does not interfere with the national systems and is not interfered with by the national systems.,ETCS
+ETCS-007,Any transition which occurs while the train is moving shall in principle occur automatically.,ETCS
+ETCS-008,ETCS shall not require any driver input for level transitions.,ETCS
+ETCS-009,"If, as a result of an automatic transition, except for transitions to and from national Operation (STM), the responsibility for the driver increases, the ETCS shall seek an acknowledgement from the driver, whether the train is stationary or not.",ETCS
+ETCS-010,"ETCS shall not be required to provide any track-to-train or train-to-track information via continuous transmission media, i.e. radio.",ETCS
+ETCS-011,"In case the transition has to be acknowledged and the driver fails to acknowledge as required, the ETCS shall initiate a brake application",ETCS
+ETCS-012,"Basic track to train and train to track information via continuous transmission media, i.e. radio. The train detection is provided by trackside.",ETCS
+ETCS-013,ETCS shall not be compatible with any national systems listed in the CCS TSI.,ETCS
+ETCS-014,Any transition which occurs while the train is moving shall in principle occur automatically.,ETCS
+ETCS-015,"If, as a result of an automatic transition, except for transitions to and from national Operation (STM), the responsibility for the driver increases, the ETCS shall seek an acknowledgement from the driver, whether th responsibility for the driver increases, the ETCS shall seek an acknowledgement from the driver, whether the train is stationary or not.",ETCS
+ETCS-016,"If the on-board has no valid national values for the current location, default values shall be used by the onboard equipment.",ETCS
+ETCS-017,track to train information provided by national system. Onboard functions provided by national system (STM) in co-operation with onboard ETCS.,ETCS
+ETCS-018,ETCS is required to be functional to a maximum train speed of 600 km/h.,ETCS
+ETCS-019,ETCS shall not be able to supervise shunting movements.,ETCS
+ETCS-020,"In case the transition has to be acknowledged and the driver fails to acknowledge as required, the ETCS shall initiate a brake application",ETCS
+ETCS-021,national values shall be applicable to a defined area.,ETCS
+ETCS-022,track to train information provided by national system. Onboard functions provided by national system (STM) in co-operation with onboard ETCS.,ETCS
+ETCS-023,ETCS shall provide the driver with information to allow him to drive the train safely.,ETCS
+ETCS-024,"Default values shall be harmonised values, permanently stored in all ERTMS/ETCS on board equipment. ETCS shall provide the driver with information to allow him to drive the train safely.",ETCS
+ETCS-025,ETCS shall not be able to supervise train or shunting movements.,ETCS
+ETCS-026,ETCS active for limited train control function; trackside not fitted with any train control system or fitted with a train control system for which no STM is available onboard.,ETCS
+ETCS-027,During the transition period between two operational states (including two different national operations) the supervision provided shall at least ensure the same protection provided by the least restrictive state.,ETCS
+ETCS-028,"ETCS shall allow for manual speed control by the driver at all times, regardless of the maximum train speed.",ETCS
+ETCS-029,"Default values shall be harmonised values, permanently stored in all ERTMS/ETCS on board equipment.",ETCS
+ETCS-030,"If an ETCS equipped train passes a level transition to one or more levels for which it is not equipped, ETCS shall initiate a brake application.",ETCS
+ETCS-031,"If an ETCS equipped train passes a level transition to a line fitted with more than one level, the onboard shall switch to the highest level, according to the priority given by trackside, for which it is equipped.",ETCS
+ETCS-032,The current operational status shall be indicated to the driver on the DMI,ETCS
+ETCS-033,"If an ETCS equipped train passes a level transition to one or more levels for which it is not equipped, ETCS shall initiate a brake application.",ETCS
+ETCS-034,"transitions which occur while the train is stationary, shall be initiated automatically or manually as appropriate.",ETCS
+ETCS-035,"Trains equipped for ERTMS/ETCS application level 3 shall be able to run on lines equipped with ERTMS/ETCS application level 3, 2, 1 and 0, trains equipped for ERTMS/ETCS application level 2 shall be able to run on lines equipped with ERTMS/ETCS application level 2, 1 and 0 and trains equipped for ERTMS/ETCS application level 1 shall be able to run on lines equipped with ERTMS/ETCS application level 1 and 0.",ETCS
+ETCS-036,Once received onboard the national values shall remain valid even if the onboard equipment is switched off.,ETCS
+ETCS-037,ETCS shall only be functional up to a maximum train speed of 100 km/h.,ETCS
+ETCS-038,ETCS is required to be functional to a maximum train speed of 500 km/h.,ETCS
+ETCS-039,national values shall be applicable to a defined area.,ETCS
+ETCS-040,The ETCS on-board shall be capable of receiving national values from the trackside to adapt to national requirements,ETCS
+ETCS-041,Once received onboard the national values shall remain valid even if the onboard equipment is switched off.,ETCS
+ETCS-042,ETCS shall not provide any information to the driver during level transitions.,ETCS
+ETCS-043,"The ETCS onboard equipment shall automatically switch to the lowest level available on a line, even if it is not equipped for that level.",ETCS
+ETCS-044,"Basic track to train information via intermittent transmission media, e.g. balises. This information can be supported by infill, transmitted via balise, loop or radio.",ETCS
+ETCS-045,ETCS shall be able to supervise train and shunting movements.,ETCS
+ETCS-046,"If an ETCS equipped train passes a level transition to a line fitted with more than one level, the onboard shall switch to the highest level, according to the priority given by trackside, for which it is equipped",ETCS
+ETCS-047,"The driver shall acknowledge the level transitions, if requested from trackside. If the driver does not acknowledge after the transition the brake shall be applied. If the driver acknowledges afterwards, the brake can be released",ETCS
+ETCS-048,"transitions which occur while the train is stationary, shall be initiated automatically or manually as appropriate.",ETCS
+ETCS-049,ETCS is required to be functional to a maximum train speed of 500 km/h.,ETCS
+ETCS-050,"For transitions to and from national Operation (STM) the ETCS shall request, an acknowledgement by the driver.",ETCS
+ETCS-051,"Trains equipped for ERTMS/ETCS application level 3 shall be able to run on lines equipped with ERTMS/ETCS application level 3, 2, 1 and 0, trains equipped for ERTMS/ETCS application level 2 shall be able to run on lines equipped with ERTMS/ETCS application level 2, 1 and 0 and trains equipped for ERTMS/ETCS application level 1 shall be able to run on lines equipped with ERTMS/ETCS application level 1 and 0.",ETCS
+ETCS-052,"ETCS shall not require the driver to acknowledge any level transitions, even if requested from trackside.",ETCS
+ETCS-053,ETCS shall be able to supervise train and shunting movements.,ETCS
+ETCS-054,"If the on-board has no valid national values for the current location, default values shall be used by the onboard equipment.",ETCS
+ETCS-055,"Basic track to train information via intermittent transmission media, e.g. balises. This information can be supported by infill, transmitted via balise, loop or radio.",ETCS
+ETCS-056,Basic track to train information shall only be provided via radio and not via balises.,ETCS
+ETCS-057,ETCS active for limited train control function; trackside not fitted with any train control system or fitted with a train control system for which no STM is available onboard.,ETCS
+ETCS-058,ETCS shall only be compatible with national systems listed in the CCS TSI if those systems are also equipped with ETCS.,ETCS
+ETCS-059,The current application level shall be indicated on the DMI.,ETCS
+ETCS-060,The ETCS on-board shall be capable of receiving national values from the trackside to adapt to national requirements,ETCS
+ETCS-061,ETCS shall only provide the driver with information to allow him to drive the train safely if the train speed is below 400 km/h.,ETCS
+ETCS-062,During the transition period between two operational states (including two different national operations) the supervision provided shall at least ensure the same protection provided by the least restrictive state.,ETCS
+ETCS-063,"national values received from the trackside shall be valid only for a limited time, after which they will be automatically deleted from the onboard equipment.",ETCS
+ETCS-064,ETCS shall be compatible with existing national systems listed in the CCS TSI such that it does not interfere with the national systems and is not interfered with by the national systems.,ETCS
+Library-001,"System provides an administrative dashboard displaying last full and incremental backup; last planned and unplanned system reboot; last software upgrade; current software version; transactions waiting to be processed; size of log-files; current count of records by record type (item, bibliographic, patron etc), database utilization (size, processes running).",Library
+Library-002,The system provides real-time processing.,Library
+Library-003,The System Administration Module shall only be accessible through a Mac-compatible client.,Library
+Library-004,"Record sets can be the basis for batch field updates; can be used as a limiting scope for queries; can be used to delete original records with the ability to review prior to deletion, write errors to a log file, and undo one or more deletions.",Library
+Library-005,System administrative staff has full visibility and control of user privileges.,Library
+Library-006,The System Administration Module shall be accessible only through a macOS-compatible client.,Library
+Library-007,The System Administration Module shall use a non-relational database back-end.,Library
+Library-008,System Administration shall not be accessible with screen-reading software or other accessibility software programs.,Library
+Library-009,Indicators can be limited to a single branch or set to systemwide.,Library
+Library-010,"System allows creation and modification of loan rules that allow or disallow check-out of items, calculate loan periods, and determine renewal limits.",Library
+Library-011,"System logs data changes (such as record deletions) and provides ""undo"" functionality. Ideally, system provides revision control.",Library
+Library-012,"Requesting rules may evaluate patron type, current number of holds, current patron account balance, item type, item status, owning location code, and other criteria.",Library
+Library-013,"System administrators can create report templates that are available to front-line staff, and can be run as is or modified to the staff person's particular needs.",Library
+Library-014,"SFTP is supported in both active and passive modes, configurable per vendor.",Library
+Library-015,System provides a dedicated interface for creating new patron accounts.,Library
+Library-016,"Depending on assigned privileges, staff can view all patron and item fields; patrons can access only selected fields. Record changes are applied in a reasonable way, with prompts to warn when a record has been changed since it was displayed.",Library
+Library-017,The System Administration Module shall only support up to 10 locations.,Library
+Library-018,Requesting rules also specify whether staff with specific privileges or roles can override specific criteria.,Library
+Library-019,Patron data is secure in all transfers to and from the system.,Library
+Library-020,System provides a management console displaying workstations running client software; workstation name and IP address; and utilities for managing and killing client sessions.,Library
+Library-021,System Administration Module shall provide a development and training environment with the ability to migrate configurations to a production environment.,Library
+Library-022,"System provides customizable 'Rules of Suppression' that specify whether patrons and staff can view authority, bibliographic, order, and item records in staff and public (OPAC) interfaces.",Library
+Library-023,"System reports for each record type current record number, current number of records, number deleted, and number purged.",Library
+Library-024,"System supports scheduling of maintenance tasks, reports, and data exports.",Library
+Library-025,The System Administration Module is part of an enterprise-level Library Automation System.,Library
+Library-026,System Administration Module shall produce standards-compliant HTML.,Library
+Library-027,System provides capability to perform live incremental and full backups,Library
+Library-028,System supports administrator-programmable and user-programmable macros and/or keyboard shortcuts.,Library
+Library-029,"If web-browser based, System Administration shall be accessible through Google Chrome (v.10.0 and later) and Apple Safari (v.5.0 and later) only",Library
+Library-030,The System Administration Module shall operate on a Windows server.,Library
+Library-031,System provides a dashboard for locating and viewing log files.,Library
+Library-032,"System upgrades and updates include written guidelines for updating servers and clients. Includes list of new, changed, and removed features.",Library
+Library-033,"System Administration process are consolidated at a central location, and accept input and provide services to multiple locations.",Library
+Library-034,"1 System supports secure protocols, including SFTP, SSL, and SSH.",Library
+Library-035,Client software can be managed with VNC and Remote Desktop.,Library
+Library-036,"New staff account creation process provides configurable templates for account administrator use; provides granular privileges for account creation, modification, and deletion.",Library
+Library-037,Read and write permission to individual configuration files can be assigned to users and groups.,Library
+Library-038,Log files can be reviewed without stopping system.,Library
+Library-039,"Documentation is specific to the particular version of the software in use at library. Documentation is web-based, indexed, organized by function, and easily searchable.",Library
+Library-040,"System runs on a fully relational, SQL-based database system.",Library
+Library-041,System Administration Module shall use a fully relational database back-end.,Library
+Library-042,System Administration shall be accessible through a mobile application only.,Library
+Library-043,"System provides a server management console including software shutdown utility, software startup utility, server shutdown utility, server restart utility.",Library
+Library-044,System supports use of third-party backup software such as EMC NetWorker.,Library
+Library-045,Access to record numbers is controlled at the user/group level.,Library
+Library-046,System administration staff can view and manage jobs scheduled by other staff.,Library
+Library-047,"User rights and privileges will be controlled through security groups and/or ""roles"" that allow access control for individuals, workgroups, and arbitrary staff groups.",Library
+Library-048,The system shall only provide batch processing and not real-time processing.,Library
+Library-049,"MARC bibliographic and authority records can be imported and exported, singly and in batch, all fields or selected fields, to and from vendors including OCLC.",Library
+Library-050,Administrators control staff access to tables and fields.,Library
+Library-051,Alert thresholds are configurable.,Library
+Library-052,System Administration shall be accessible through a web-browser or a Windowscompatible client.,Library
+Library-053,Records may be visible to specific workgroups only; to all staff and patrons at specific locations; or to all staff and all patrons.,Library
+Library-054,"Record types include patron, bibliographic, item, order, invoice, etc.",Library
+Library-055,"The System Administration Module relies on the data structures and functionality of an enterprise-level Library Automation System, including Acquisitions and Cataloging modules.",Library
+Library-056,"System provides fine-grained permissions to allow or disallow staff to run specific reports, and/or to run ad hoc reports on specific sets of data.",Library
+Library-057,"System Administration shall be accessible with screen-reading software, screenmagnification software, and other software programs designed to increase accessibility.",Library
+Library-058,Loan rules can access check-out location open/closed schedule in calculating due date.,Library
+Library-059,System documentation is library-specific and follows standard formats for technical documentation.,Library
+Library-060,"Client software installation and updates must be centrally managed, using standard or proprietary network management tools, allowing streaming updates from server.",Library
+Library-061,System Administration shall operate on a Linux or Solaris server.,Library
+Library-062,"Shortcut keys may be assigned to macros (e.g. 'Insert Field') or to text strings. Macros are centrally managed on server, can be imported from and exported to individual users, and can be restricted for use and/or editting through centrallymanaged permissions.",Library
+Library-063,"System supports creation of custom dashboards that display current and historical data about system performance, record creation and modification, circulation transactions, etc.",Library
+Library-064,Alerts can be sent to unlimited number of recipients via any or all alert methods.,Library
+Library-065,System provides a user-friendly interface for designing queries against all record types.,Library
+Library-066,61. of data and transaction logs.,Library
+Library-067,Administrators can create dashboards and give access to selected users and groups.,Library
+Library-068,"System supports an unlimited number of record sets, with the ability to import and export set members in batch.",Library
+Library-069,Individual logins allow user-level preferences and audit trail.,Library
+Library-070,System provides a dedicated interface for creating new staff accounts.,Library
+Library-071,"Jobs can be scheduled in sequence (""start job B when job A finishes"") and can be modified or cancelled at any time prior to starting.",Library
+Library-072,"For any patron record or item record, staff can identify where it is in use (location, user, date and time placed).",Library
+Library-073,System supports SMTP for email transport.,Library
+Library-074,"System Administration must support a library system with 50 locations, 20 million circulations, purchasing and processing over 500,000 items per year. It is highly desirable that searches and reports can be processed during open hours without disrupting other system functions.",Library
+Library-075,"If web-browser based, System Administration shall not be accessible through Microsoft Internet Explorer or Mozilla Firefox.",Library
+Library-076,"System provides dashboard of performance monitoring and management tools. Identification of processes with process ID, owner username, IP address (if applicable), CPU utilization, memory utilization, run time. Runaway processes are identified.",Library
+Library-077,System Administration shall operate on a Windows server only.,Library
+Library-078,System status is represented by visual indicators (e.g. green and red lights).,Library
+Library-079,System provides a single console with access to all configuration files.,Library
+Library-080,"Alerts can be sent via administrative dashboards, email messages, and text messages.",Library
+Library-081,"Logs can be enabled, disabled, and set to a specific retention threshold.",Library
+Library-082,System provides access to all configuration files.,Library
+Library-083,All client configuration files are server based; configurations can be exported and imported between clients.,Library
+Library-084,"System provides a circulation dashboard showing key performace indicators such as check-outs per hour, check-ins per hour, holds placed per hour, holds paged per day, etc.",Library
+Library-085,The System Administration Module shall not be accessible with any accessibility software.,Library
+Library-086,Loan rules also specify whether a specific criteria may be overridden by staff with specific privileges or roles.,Library
+Library-087,"Staff can be given permission to schedule tasks, reports, and data exports.",Library
+Library-088,System provides access to root shell.,Library
+Library-089,"System provides a single interface for reviewing and controlling scheduled tasks, including staff-scheduled tasks, automated reports, scheduled imports and exports, software updates, etc.",Library
+Library-090,Staff and group accounts are independent from workstations; client install should not be tied to a specific location.,Library
+Library-091,System provides full access to all log files.,Library
+Library-092,"The software developer shall provide a thorough high-level description of major processes, including bibliographic record import and export, validation of bibliographic records against internal and external authority sources, and standard reports.",Library
+Library-093,"The software developer shall provide complete data specifications for authority records, bibliographic records, order records, item records, hold/request records, and other records maintained or accessed by the System Administration Module.",Library
+Library-094,"The System Administration Module interacts with a patron interface, also known as an Online Public Access Catalog (OPAC).",Library
+Library-095,System Administration shall not be accessible with screen-reading software or any other accessibility software.,Library
+Library-096,"System provides full support for SNMP and supports monitoring of system resources, including disk space, CPU load, memory load, system processes, system interfaces and ports.",Library
+Library-097,Patron account creation process provides configurable templates for staff use; supports field validation and required fields; provides configurable defaults.,Library
+Library-098,"System Administration must support a library system with 100 locations, 50 million circulations, purchasing and processing over 1 million items per year.",Library
+Library-099,"The system shall provide an online, hierarchical, and cross-linked help system in HTML that describes and illustrates all system functions.",Library
+Library-100,System allows creation and modification of requesting rules that determine whether a patron can place a hold on an item.,Library
+Library-101,Imported batches can be maintained and manipulated as selection lists .,Library
+Library-102,"System supports restrictions based on business rules, e.g. restrictions on deleting item records that are in checked-out status, or restrictions on deleting bibliographic records with existing holds.",Library
+Library-103,"Ability to set thresholds on the length of time records are locked and provide, for all record types, a list of records in sustained use/locked condition.",Library
+Library-104,Imported records can overlay existing short or full bibliographic records.,Library
+Library-105,"Staff can select fields to query; select values from picklist of possible values; select regular expressions from drop-down menu, and use a full range of Boolean operators.",Library
+Library-106,"The System Administration Module must not support a library system with more than 25 locations, 10 million circulations, purchasing and processing over 250,000 items per year.",Library
+Library-107,"Loan rules may evaluate patron type, current number of items checked out, current patron account balance, item type, item status, owning location code, check-out location code, and other criteria.",Library
+Library-108,"The System Administration Module interface with a variety of vendor websites, via published APIs and/or automated transfer of standard-format data files (e.g. USMARC21, EDIFACT).",Library
+Library-109,"If web-browser based, System Administration shall be accessible through Microsoft Internet Explorer (v.6.0 and later) and Mozilla Firefox (v.2.0 and later).",Library
+Coffee-001,The British market requires tea and excludes any ring tone.,Coffee
+Coffee-002,The machine shall offer a selection of alcoholic beverages.,Coffee
+Coffee-003,"The machine shall offer, as beverages, Coffee and Cappuccino or Tea.",Coffee
+Coffee-004,The machine shall not return to idle after the beverage is taken.,Coffee
+Coffee-005,The machine shall offer hot chocolate as a beverage option.,Coffee
+Coffee-006,The machine shall only offer Coffee as a beverage option in the British market.,Coffee
+Coffee-007,The machine shall not offer Cappuccino as a beverage option.,Coffee
+Coffee-008,"After inserting a suitable coin, the user shall choose a beverage and select the amount of sugar.",Coffee
+Coffee-009,The machine shall only offer coffee on odd-numbered days and tea on even-numbered days.,Coffee
+Coffee-010,"The machine shall always play a ringtone after beverage delivery, even if the user has selected Tea as their beverage.",Coffee
+Coffee-011,A ringtone possibly has to be played after beverage delivery.,Coffee
+Coffee-012,The user shall choose a beverage and select the amount of cream instead of sugar.,Coffee
+Coffee-013,The user shall not be able to select the amount of sugar in their beverage.,Coffee
+Coffee-014,"The machine shall offer, as beverages, Coffee and Cappuccino or Hot Chocolate.",Coffee
+Coffee-015,"The machine shall never return to an idle state after the beverage is taken. Instead, it shall continue to display advertisements until the user interacts with it again.",Coffee
+Coffee-016,"After the beverage is taken, the machine returns idle.",Coffee
+Coffee-017,The machine shall play a ringtone before beverage delivery on weekdays and not on weekends.,Coffee
+Coffee-018,The machine shall always offer coffee.,Coffee
+Coffee-019,The machine shall not offer Cappuccino as a beverage option.,Coffee
+Coffee-020,The user shall choose a beverage and select the amount of sugar before inserting a coin.,Coffee
+Coffee-021,The machine shall return to the main menu after beverage delivery on weekends and not on weekdays.,Coffee

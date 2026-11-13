@@ -12,6 +12,7 @@ from doorstop.reqsense.model import Finding
 # Pairs at or above this similarity are reported. Tune these on your dev data later.
 DEFAULT_THRESHOLD = {"tfidf": 0.40, "sbert": 0.80}
 SBERT_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+_sbert_model = None  # loaded once, then reused (loading takes several seconds)
 
 
 def embed(texts, method="tfidf"):
@@ -25,10 +26,12 @@ def embed(texts, method="tfidf"):
         vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), sublinear_tf=True)
         return vectorizer.fit_transform(texts).toarray()
     if method == "sbert":
-        from sentence_transformers import SentenceTransformer
+        global _sbert_model  # pylint: disable=global-statement
+        if _sbert_model is None:
+            from sentence_transformers import SentenceTransformer
 
-        model = SentenceTransformer(SBERT_MODEL)
-        return model.encode(texts, normalize_embeddings=True)
+            _sbert_model = SentenceTransformer(SBERT_MODEL)
+        return _sbert_model.encode(texts, normalize_embeddings=True)
     raise ValueError(f"unknown method: {method}")
 
 

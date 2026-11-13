@@ -15,6 +15,7 @@ from doorstop.reqsense.model import Finding
 NLI_MODEL = "cross-encoder/nli-distilroberta-base"  # RoBERTa-based, like the NLI model in [6]
 CANDIDATE_THRESHOLD = 0.5  # sim+nli: only pairs at least this similar are sent to NLI
 NLI_THRESHOLD = 0.5  # report a conflict if the contradiction probability >= this
+LAST_PAIRS_CHECKED = 0  # how many pairs the last run sent to the checker (for the evaluation)
 
 # ---------------------------------------------------------------------------
 # 1. Baseline: simple rules
@@ -135,6 +136,8 @@ def detect_conflicts(requirements, method="heuristic", embedder="sbert"):
         pairs = [(i, j) for i, j in all_pairs if sim[i][j] >= CANDIDATE_THRESHOLD]
     else:
         pairs = all_pairs
+    global LAST_PAIRS_CHECKED  # pylint: disable=global-statement
+    LAST_PAIRS_CHECKED = len(pairs)
     print(f"ReqSense conflict ({method}): checking {len(pairs)} of {len(all_pairs)} pairs")
 
     findings = []

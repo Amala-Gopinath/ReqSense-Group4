@@ -1,0 +1,254 @@
+"""ReqSense evaluation: produces the numbers for the report (RQ1, RQ2).
+
+Usage (run from C:\\projects\\doorstop):
+  python tools/evaluate.py ambiguity  --methods rules nli rules+nli tfidf+lr sbert+lr
+  python tools/evaluate.py conflict   --methods heuristic nli sim+nli
+  python tools/evaluate.py redundancy --methods tfidf sbert
+
+Results are printed as Markdown tables and saved in the results/ folder.
+"""
+
+import argparse
+import csv
+import time
+from collections import defaultdict
+from datetime import datetime
+from pathlib import Path
+
+import numpy as np
+
+from doorstop.reqsense import ambiguity, conflict, redundancy
+
+RESULTS = Path("results")
+BOOTSTRAP = 1000  # number of resamples for the 95% confidence intervals
+SEED = 42
+
+
+# ---------------------------------------------------------------------------
+# metrics
+# ---------------------------------------------------------------------------
+
+
+def prf(tp, fp, fn):
+    """Precision, recall, F1."""
+    p = tp / (tp + fp) if tp + fp else 0.0
+    r = tp / (tp + fn) if tp + fn else 0.0
+    f = 2 * p * r / (p + r) if p + r else 0.0
+    return p, r, f
+
+
+def binary_f1(gold, pred):
+    gold, pred = np.asarray(gold, bool), np.asarray(pred, bool)
+    return prf(int((gold & pred).sum()), int((~gold & pred).sum()), int((gold & ~pred).sum()))
+
+
+def macro_f1(gold, pred, classes):
+    return float(np.mean([binary_f1([g == c for g in gold], [p == c for p in pred])[2] for c in classes]))
+
+
+def bootstrap_ci(metric, n_items):
+    """95% confidence interval: recompute `metric(indices)` on random resamples of the items."""
+    rng = np.random.default_rng(SEED)
+    values = [metric(rng.integers(0, n_items, n_items)) for _ in range(BOOTSTRAP)]
+    lo, hi = np.percentile(values, [2.5, 97.5])
+    return f"[{lo:.2f}, {hi:.2f}]"
+
+
+def paired_test(metric_a, metric_b, n_items):
+    """RQ2: how often (out of 1000 resamples) is method A NOT better than baseline B? (= one-sided p-value)"""
+    rng = np.random.default_rng(SEED)
+    worse = 0
+    for _ in range(BOOTSTRAP):
+        idx = rng.integers(0, n_items, n_items)
+        worse += metric_a(idx) <= metric_b(idx)
+    return worse / BOOTSTRAP
+
+
+def save(name, lines):
+    RESULTS.mkdir(exist_ok=True)
+    path = RESULTS / f"{name}_{datetime.now():%Y%m%d-%H%M}.md"
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print("\n".join(lines))
+    print(f"\nsaved to {path}")
+
+
+def read_csv(path):
+    with open(path, encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+# ---------------------------------------------------------------------------
+# F1 ambiguity: classify each of the 131 requirements into one of 6 classes
+# ---------------------------------------------------------------------------
+
+
+def trained_predictions(texts, gold, method, folds=4):
+    """Supervised classifier (logistic regression) evaluated with stratified k-fold cross-validation.
+
+    Each requirement is predicted by a model that was trained on the OTHER folds only,
+    so no requirement is ever tested by a model that saw it during training.
+    """
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import StratifiedKFold
+
+    gold = np.asarray(gold)
+    if method == "sbert+lr":
+        features = np.asarray(redundancy.embed(texts, "sbert"))  # meaning vectors, computed once
+    pred = np.empty(len(texts), dtype=object)
+    for train, test in StratifiedKFold(folds, shuffle=True, random_state=SEED).split(texts, gold):
+        if method == "tfidf+lr":
+            from sklearn.feature_extraction.text import TfidfVectorizer
+
+            vec = TfidfVectorizer(ngram_range=(1, 2), sublinear_tf=True)  # fitted on the training fold only
+            x_train = vec.fit_transform([texts[i] for i in train])
+            x_test = vec.transform([texts[i] for i in test])
+        else:
+            x_train, x_test = features[train], features[test]
+        model = LogisticRegression(max_iter=3000, class_weight="balanced", C=10)
+        model.fit(x_train, gold[train])
+        pred[test] = model.predict(x_test)
+    return list(pred)
+
+
+def eval_ambiguity(args):
+    rows = read_csv(args.data or "data/defects.csv")
+    texts = [r["text"] for r in rows]
+    gold = [r["label"] for r in rows]
+    classes = ambiguity.CLASSES
+    n = len(rows)
+
+    preds, seconds = {}, {}
+    for method in args.methods:
+        start = time.perf_counter()
+        if method in ("tfidf+lr", "sbert+lr"):
+            preds[method] = trained_predictions(texts, gold, method)
+        else:
+            preds[method] = ambiguity.classify(texts, method)
+        seconds[method] = time.perf_counter() - start
+
+    lines = [f"# F1 ambiguity / defect classification ({n} requirements, 6 classes)", "",
+             "| Method | Accuracy [95% CI] | Macro-F1 [95% CI] | Not classified | Time (s) |", "|---|---|---|---|---|"]
+    for m, pred in preds.items():
+        acc = lambda idx, p=pred: float(np.mean([gold[i] == p[i] for i in idx]))  # noqa: E731
+        mf1 = lambda idx, p=pred: macro_f1([gold[i] for i in idx], [p[i] for i in idx], classes)  # noqa: E731
+        everything = range(n)
+        lines.append(f"| {m} | {acc(everything):.2f} {bootstrap_ci(acc, n)} | {mf1(everything):.2f} {bootstrap_ci(mf1, n)} "
+                     f"| {sum(p is None for p in pred)} | {seconds[m]:.1f} |")
+
+    lines += ["", "Per-class F1:", "", "| Method | " + " | ".join(classes) + " |", "|---|" + "---|" * len(classes)]
+    for m, pred in preds.items():
+        cells = [f"{binary_f1([g == c for g in gold], [p == c for p in pred])[2]:.2f}" for c in classes]
+        lines.append(f"| {m} | " + " | ".join(cells) + " |")
+    lines += ["", "Support (number of requirements per class): "
+              + ", ".join(f"{c}={gold.count(c)}" for c in classes)]
+
+    if "rules" in preds and len(preds) > 1:
+        lines += ["", "Paired bootstrap vs rules baseline (macro-F1): p = probability the method is NOT better", ""]
+        base = preds["rules"]
+        for m, pred in preds.items():
+            if m == "rules":
+                continue
+            fa = lambda idx, p=pred: macro_f1([gold[i] for i in idx], [p[i] for i in idx], classes)  # noqa: E731
+            fb = lambda idx: macro_f1([gold[i] for i in idx], [base[i] for i in idx], classes)  # noqa: E731
+            lines.append(f"- {m} vs rules: p = {paired_test(fa, fb, n):.3f}")
+    save("ambiguity", lines)
+
+
+# ---------------------------------------------------------------------------
+# F3 conflict: within each dataset, check ALL pairs of requirements
+# ---------------------------------------------------------------------------
+
+
+def eval_conflict(args):
+    reqs = read_csv(args.data or "data/conflict_reqs.csv")
+    gold_rows = read_csv(args.pairs)
+    by_dataset = defaultdict(list)
+    for r in reqs:
+        by_dataset[r["dataset"]].append((r["id"], r["text"]))
+    gold_pairs = {frozenset((r["id1"], r["id2"])) for r in gold_rows}
+
+    lines = ["# F3 conflict detection (all pairs within each dataset)", "",
+             "| Dataset | Method | P | R | F1 | Pairs checked | Time (s) |", "|---|---|---|---|---|---|---|"]
+    pooled = defaultdict(lambda: ([], []))  # method -> (gold labels, predictions) over all datasets
+    for name, items in by_dataset.items():
+        uids = [u for u, _ in items]
+        n = len(items)
+        all_pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+        labels = [frozenset((uids[i], uids[j])) in gold_pairs for i, j in all_pairs]
+        for method in args.methods:
+            start = time.perf_counter()
+            found = conflict.detect_conflicts(items, method, "sbert")
+            seconds = time.perf_counter() - start
+            score_of = {frozenset(f.uids): f.score for f in found}
+            pred = [frozenset((uids[i], uids[j])) in score_of for i, j in all_pairs]
+            p, r, f = binary_f1(labels, pred)
+            checked = conflict.LAST_PAIRS_CHECKED
+            lines.append(f"| {name} | {method} | {p:.2f} | {r:.2f} | {f:.2f} | {checked}/{len(all_pairs)} | {seconds:.1f} |")
+            pooled[method][0].extend(labels)
+            pooled[method][1].extend(pred)
+
+    lines += ["", "Pooled over all 7 datasets:", "", "| Method | P | R | F1 [95% CI] |", "|---|---|---|---|"]
+    for m, (g, pr) in pooled.items():
+        g, pr = np.asarray(g), np.asarray(pr)
+        f1 = lambda idx, g=g, pr=pr: binary_f1(g[idx], pr[idx])[2]  # noqa: E731
+        p, r, f = binary_f1(g, pr)
+        lines.append(f"| {m} | {p:.2f} | {r:.2f} | {f:.2f} {bootstrap_ci(f1, len(g))} |")
+    if "heuristic" in pooled and len(pooled) > 1:
+        lines += ["", "Paired bootstrap vs heuristic baseline (F1): p = probability the method is NOT better", ""]
+        g, base = np.asarray(pooled["heuristic"][0]), np.asarray(pooled["heuristic"][1])
+        for m, (_, pr) in pooled.items():
+            if m != "heuristic":
+                pr = np.asarray(pr)
+                fa = lambda idx, pr=pr: binary_f1(g[idx], pr[idx])[2]  # noqa: E731
+                fb = lambda idx: binary_f1(g[idx], base[idx])[2]  # noqa: E731
+                lines.append(f"- {m} vs heuristic: p = {paired_test(fa, fb, len(g)):.3f}")
+    save("conflict", lines)
+
+
+# ---------------------------------------------------------------------------
+# F2 redundancy: seeded duplicates (id, text, dup_of)
+# ---------------------------------------------------------------------------
+
+
+def eval_redundancy(args):
+    rows = read_csv(args.data or "data/seeded_duplicates.csv")
+    reqs = [(r["id"], r["text"]) for r in rows]
+    uids = [u for u, _ in reqs]
+    gold_pairs = {frozenset((r["id"], r["dup_of"])) for r in rows if r.get("dup_of")}
+    n = len(reqs)
+    all_pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+    labels = np.asarray([frozenset((uids[i], uids[j])) in gold_pairs for i, j in all_pairs])
+
+    lines = [f"# F2 redundancy ({n} requirements, {len(gold_pairs)} duplicate pairs, {len(all_pairs)} pairs)", "",
+             "| Method | Threshold | P | R | F1 [95% CI] | Time (s) |", "|---|---|---|---|---|---|"]
+    sweep = ["", "Threshold sweep (P / R / F1):", ""]
+    for method in args.methods:
+        start = time.perf_counter()
+        sim = redundancy.similarity_matrix([t for _, t in reqs], method)
+        seconds = time.perf_counter() - start
+        scores = np.asarray([sim[i][j] for i, j in all_pairs])
+        thr = redundancy.DEFAULT_THRESHOLD[method]
+        pred = scores >= thr
+        f1 = lambda idx, pred=pred: binary_f1(labels[idx], pred[idx])[2]  # noqa: E731
+        p, r, f = binary_f1(labels, pred)
+        lines.append(f"| {method} | {thr:.2f} | {p:.2f} | {r:.2f} | {f:.2f} {bootstrap_ci(f1, len(labels))} | {seconds:.1f} |")
+        cells = []
+        for t in np.arange(0.3, 1.0, 0.1):
+            pp, rr, ff = binary_f1(labels, scores >= t)
+            cells.append(f"{t:.1f}: {pp:.2f}/{rr:.2f}/{ff:.2f}")
+        sweep.append(f"- {method}: " + "; ".join(cells))
+    save("redundancy", lines + sweep)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="ReqSense evaluation")
+    parser.add_argument("task", choices=["ambiguity", "conflict", "redundancy"])
+    parser.add_argument("--methods", nargs="+", required=True)
+    parser.add_argument("--data", help="CSV with requirements (default: data/...)")
+    parser.add_argument("--pairs", default="data/conflict_pairs.csv", help="conflict: CSV with gold pairs")
+    args = parser.parse_args()
+    {"ambiguity": eval_ambiguity, "conflict": eval_conflict, "redundancy": eval_redundancy}[args.task](args)
+
+
+if __name__ == "__main__":
+    main()
