@@ -18,15 +18,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Doorstop + ReqSense (light: the tests use fake AI models)
+      - name: "Install Doorstop + ReqSense (light - the tests use fake AI models)"
         run: |
           pip install -e .
           pip install numpy scikit-learn pytest pytest-cov
 
-      - name: Unit + integration tests (fail if coverage < 80%)
+      - name: "Unit + integration tests (fail if coverage < 80%)"
         run: pytest doorstop/reqsense --cov=doorstop/reqsense --cov-report=term-missing --cov-fail-under=80
 
-      - name: Dog-food - analyze Doorstop's own requirements
+      - name: "Dog-food - analyze the requirements of Doorstop itself"
         run: doorstop analyze REQ --checks ambiguity,redundancy,conflict --format md -o reqsense-report.md
 
       - uses: actions/upload-artifact@v4
