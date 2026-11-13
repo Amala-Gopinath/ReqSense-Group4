@@ -72,6 +72,17 @@ def save(name, lines):
     print(f"\nsaved to {path}")
 
 
+def dev_test_split(labels):
+    """Stratified 80% dev / 20% test split (same proportion of positives in both parts)."""
+    labels = np.asarray(labels)
+    rng = np.random.default_rng(SEED)
+    dev = np.zeros(len(labels), bool)
+    for value in (True, False):
+        idx = np.flatnonzero(labels == value)
+        dev[rng.choice(idx, int(round(0.8 * len(idx))), replace=False)] = True
+    return dev, ~dev
+
+
 def read_csv(path):
     with open(path, encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
@@ -190,12 +201,7 @@ def eval_conflict(args):
 
     labels = np.asarray(labels)
     dataset_of = np.asarray(dataset_of)
-    rng = np.random.default_rng(SEED)  # stratified 80/20 split of the pairs
-    dev = np.zeros(len(labels), bool)
-    for value in (True, False):
-        idx = np.flatnonzero(labels == value)
-        dev[rng.choice(idx, int(round(0.8 * len(idx))), replace=False)] = True
-    test = ~dev
+    dev, test = dev_test_split(labels)  # stratified 80/20 split of the pairs
 
     grid = np.round(np.arange(0.50, 1.0, 0.01), 2)
     lines = ["# F3 conflict detection (all pairs within each of the 7 datasets)", "",
@@ -253,6 +259,7 @@ def eval_conflict(args):
 
 
 def eval_redundancy(args):
+    """Similarity threshold tuned on an 80% dev split of the pairs, reported on the 20% test split."""
     rows = read_csv(args.data or "data/seeded_duplicates.csv")
     reqs = [(r["id"], r["text"]) for r in rows]
     uids = [u for u, _ in reqs]
@@ -260,25 +267,39 @@ def eval_redundancy(args):
     n = len(reqs)
     all_pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
     labels = np.asarray([frozenset((uids[i], uids[j])) in gold_pairs for i, j in all_pairs])
+    dev, test = dev_test_split(labels)
+    grid = np.round(np.arange(0.05, 1.0, 0.01), 2)
 
     lines = [f"# F2 redundancy ({n} requirements, {len(gold_pairs)} duplicate pairs, {len(all_pairs)} pairs)", "",
+             f"Threshold tuned on the 80% dev split ({int(dev.sum())} pairs); scores on the 20% test split "
+             f"({int(test.sum())} pairs, {int(labels[test].sum())} duplicates).", "",
              "| Method | Threshold | P | R | F1 [95% CI] | Time (s) |", "|---|---|---|---|---|---|"]
-    sweep = ["", "Threshold sweep (P / R / F1):", ""]
+    sweep = ["", "Threshold sweep on ALL pairs (P / R / F1), for discussion only:", ""]
+    preds = {}
     for method in args.methods:
         start = time.perf_counter()
         sim = redundancy.similarity_matrix([t for _, t in reqs], method)
         seconds = time.perf_counter() - start
         scores = np.asarray([sim[i][j] for i, j in all_pairs])
-        thr = redundancy.DEFAULT_THRESHOLD[method]
-        pred = scores >= thr
-        f1 = lambda idx, pred=pred: binary_f1(labels[idx], pred[idx])[2]  # noqa: E731
-        p, r, f = binary_f1(labels, pred)
-        lines.append(f"| {method} | {thr:.2f} | {p:.2f} | {r:.2f} | {f:.2f} {bootstrap_ci(f1, len(labels))} | {seconds:.1f} |")
-        cells = []
-        for t in np.arange(0.3, 1.0, 0.1):
-            pp, rr, ff = binary_f1(labels, scores >= t)
-            cells.append(f"{t:.1f}: {pp:.2f}/{rr:.2f}/{ff:.2f}")
+        dev_f1 = [binary_f1(labels[dev], scores[dev] >= t)[2] for t in grid]
+        thr = float(grid[int(np.argmax(dev_f1))])
+        preds[method] = scores >= thr
+        g, pr = labels[test], preds[method][test]
+        f1 = lambda idx, g=g, pr=pr: binary_f1(g[idx], pr[idx])[2]  # noqa: E731
+        p, r, f = binary_f1(g, pr)
+        lines.append(f"| {method} | {thr:.2f} | {p:.2f} | {r:.2f} | {f:.2f} {bootstrap_ci(f1, len(g))} | {seconds:.1f} |")
+        cells = [f"{t:.1f}: " + "/".join(f"{v:.2f}" for v in binary_f1(labels, scores >= t)) for t in np.arange(0.3, 1.0, 0.1)]
         sweep.append(f"- {method}: " + "; ".join(cells))
+
+    if "tfidf" in preds and len(preds) > 1:
+        lines += ["", "Paired bootstrap on the test split vs TF-IDF baseline (F1): p = probability the method is NOT better", ""]
+        g, base = labels[test], preds["tfidf"][test]
+        for m, pred in preds.items():
+            if m != "tfidf":
+                pr = pred[test]
+                fa = lambda idx, pr=pr: binary_f1(g[idx], pr[idx])[2]  # noqa: E731
+                fb = lambda idx: binary_f1(g[idx], base[idx])[2]  # noqa: E731
+                lines.append(f"- {m} vs tfidf: p = {paired_test(fa, fb, len(g)):.3f}")
     save("redundancy", lines + sweep)
 
 

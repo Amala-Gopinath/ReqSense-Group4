@@ -1,0 +1,101 @@
+id,text,dup_of,kind
+S001,The system shall allow users to reset their password via a link sent to their registered email address.,,original
+S002,Users shall be able to reset a forgotten password using a reset link emailed to their registered address.,S001,paraphrase
+S003,The system shall log every failed login attempt with a timestamp and source IP address.,,original
+S004,Each unsuccessful login attempt shall be recorded together with its time and originating IP address.,S003,paraphrase
+S005,The application shall support English and French user interfaces.,,original
+S006,The user interface shall be available in both English and French.,S005,paraphrase
+S007,The system shall generate a PDF invoice for each completed order.,,original
+S008,A PDF invoice shall be produced by the system whenever an order is completed.,S007,paraphrase
+S009,The system shall send an SMS notification when a parcel is out for delivery.,,original
+S010,Customers shall receive a text message once their parcel has left for delivery.,S009,paraphrase
+S011,Only administrators shall be able to create new user accounts.,,original
+S012,The creation of new user accounts shall be restricted to administrators.,S011,paraphrase
+S013,The system shall back up the database every night at 02:00.,,original
+S014,A nightly database backup shall run at 2 a.m.,S013,paraphrase
+S015,The search page shall allow filtering products by price range.,,original
+S016,Users shall be able to filter products on the search page by a minimum and maximum price.,S015,paraphrase
+S017,The system shall display the remaining account balance on the dashboard.,,original
+S018,The dashboard shall show the user's current account balance.,S017,paraphrase
+S019,The system shall automatically log out a user after 15 minutes of inactivity.,,original
+S020,Users who are inactive for 15 minutes shall be signed out automatically.,S019,paraphrase
+S021,The system shall export the monthly sales report in CSV format.,,original
+S022,The monthly sales report shall be exportable as a CSV file.,S021,paraphrase
+S023,All personal data shall be encrypted at rest using AES-256.,,original
+S024,The system shall store personal data encrypted with AES-256.,S023,paraphrase
+S025,The mobile app shall work on Android 12 and later.,,original
+S026,The mobile application shall support Android version 12 or newer.,S025,paraphrase
+S027,The system shall allow a customer to cancel an order before it ships.,,original
+S028,Customers shall be able to cancel their order as long as it has not yet been shipped.,S027,paraphrase
+S029,The system shall send a reminder email 24 hours before a scheduled appointment.,,original
+S030,An email reminder shall be sent one day ahead of every scheduled appointment.,S029,paraphrase
+S031,The system shall allow the librarian to register a new book with its ISBN title and author.,,original
+S032,The librarian shall be able to add a new book by entering its ISBN title and author.,S031,paraphrase
+S033,The system shall allow members to renew a borrowed book up to two times.,,original
+S034,A member may renew a borrowed book at most twice.,S033,paraphrase
+S035,The system shall calculate shipping costs based on parcel weight and destination.,,original
+S036,Shipping fees shall be computed from the weight of the parcel and the delivery destination.,S035,paraphrase
+S037,The system shall require two-factor authentication for all administrator logins.,,original
+S038,Administrators shall log in using two-factor authentication.,S037,paraphrase
+S039,The system shall display product reviews sorted by most recent first.,,original
+S040,Product reviews shall be listed with the newest review at the top.,S039,paraphrase
+S041,The system shall allow patients to book an appointment online.,,original
+S042,Patients shall be able to schedule appointments through the website.,S041,paraphrase
+S043,The system shall show the estimated delivery date at checkout.,,original
+S044,During checkout the expected delivery date shall be displayed to the customer.,S043,paraphrase
+S045,The system shall prevent the same email address from being used for two accounts.,,original
+S046,Each email address shall be linked to at most one user account.,S045,paraphrase
+S047,The system shall keep a history of all changes made to a customer record.,,original
+S048,Every modification of a customer record shall be stored in a change history.,S047,paraphrase
+S049,The system shall allow teachers to upload course material as PDF files.,,original
+S050,Teachers shall be able to publish course documents in PDF format.,S049,paraphrase
+S051,The system shall notify the warehouse when stock of an item falls below 10 units.,,original
+S052,A notification shall be sent to the warehouse whenever an item's stock drops under 10 units.,S051,paraphrase
+S053,The system shall let users change their profile picture.,,original
+S054,Users shall be able to update the photo shown on their profile.,S053,paraphrase
+S055,The system shall reject passwords shorter than 12 characters.,,original
+S056,Passwords with fewer than 12 characters shall not be accepted.,S055,paraphrase
+S057,The system shall allow drivers to mark a delivery as completed in the mobile app.,,original
+S058,In the mobile app a driver shall be able to confirm that a delivery is done.,S057,paraphrase
+S059,The system shall print a receipt after each cash payment.,,original
+S060,A receipt shall be printed whenever a customer pays in cash.,S059,paraphrase
+S061,The system shall archive closed support tickets after 90 days.,,original
+S062,Support tickets that have been closed for 90 days shall be moved to the archive.,S061,paraphrase
+S063,The system shall allow managers to approve or reject leave requests.,,original
+S064,Leave requests shall be approved or declined by a manager.,S063,paraphrase
+S065,The system shall display prices including VAT.,,original
+S066,All prices shown to customers shall include value added tax.,S065,paraphrase
+S067,The system shall reset the password via an SMS code.,,near-miss
+S068,The system shall log every successful login with a timestamp.,,near-miss
+S069,The application shall support German and Spanish user interfaces.,,near-miss
+S070,The system shall generate a PDF receipt for each refund.,,near-miss
+S071,The system shall send an SMS notification when a payment fails.,,near-miss
+S072,Only administrators shall be able to delete user accounts.,,near-miss
+S073,The system shall back up uploaded documents every hour.,,near-miss
+S074,The search page shall allow sorting products by popularity.,,near-miss
+S075,The dashboard shall show the number of open support tickets.,,near-miss
+S076,The system shall automatically lock the screen after 5 minutes of inactivity.,,near-miss
+S077,The system shall export the annual tax report in XLSX format.,,near-miss
+S078,All personal data shall be transmitted over TLS 1.3.,,near-miss
+S079,The mobile app shall work on iOS 16 and later.,,near-miss
+S080,The system shall allow a customer to return an order within 30 days of delivery.,,near-miss
+S081,The system shall send a reminder email 7 days before a library loan expires.,,near-miss
+S082,The system shall allow the librarian to remove a damaged book from the catalogue.,,near-miss
+S083,The system shall calculate import duties based on the declared value of the parcel.,,near-miss
+S084,The system shall require a password change every 90 days for administrators.,,near-miss
+S085,The system shall display product reviews with a star rating from 1 to 5.,,near-miss
+S086,The system shall allow patients to cancel an appointment online.,,near-miss
+S087,The system shall show the shipping cost at checkout.,,near-miss
+S088,The system shall allow two accounts to share the same phone number.,,near-miss
+S089,The system shall keep a history of all payments made by a customer.,,near-miss
+S090,The system shall allow students to upload assignments as PDF files.,,near-miss
+S091,The system shall notify the purchasing team when an item is out of stock.,,near-miss
+S092,The system shall let users change their display name.,,near-miss
+S093,The system shall reject usernames longer than 30 characters.,,near-miss
+S094,The system shall allow drivers to report a damaged parcel in the mobile app.,,near-miss
+S095,The system shall email a receipt after each card payment.,,near-miss
+S096,The system shall delete spam messages after 30 days.,,near-miss
+S097,The system shall allow employees to submit leave requests.,,near-miss
+S098,The system shall display prices in the customer's local currency.,,near-miss
+S099,The system shall provide an audit trail of all configuration changes.,,distractor
+S100,The system shall support at least 500 concurrent users.,,distractor
