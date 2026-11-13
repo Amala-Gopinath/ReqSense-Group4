@@ -1,0 +1,32 @@
+# ReqSense container recipe (CPU only, reproducible).
+#
+# Build:  docker build -f Dockerfile.reqsense -t reqsense .
+# Use:    docker run --rm -v "$PWD/my-requirements:/work" -w /work reqsense analyze --format md
+#
+# The AI models are downloaded while building, so the container then runs fully offline
+# (requirements never leave the machine - "local-first" goal of the proposal).
+
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/* \
+    && git config --global --add safe.directory '*'
+
+WORKDIR /opt/doorstop
+COPY . .
+
+# CPU-only PyTorch keeps the image much smaller than the default GPU build.
+RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu \
+    -r requirements-reqsense.txt \
+    && pip install --no-cache-dir -e .
+
+# Pre-download the three models used by ReqSense.
+RUN python -c "from sentence_transformers import SentenceTransformer, CrossEncoder; \
+    SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2'); \
+    CrossEncoder('cross-encoder/nli-distilroberta-base'); \
+    CrossEncoder('MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli')"
+
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+
+ENTRYPOINT ["doorstop"]
+CMD ["analyze", "--help"]

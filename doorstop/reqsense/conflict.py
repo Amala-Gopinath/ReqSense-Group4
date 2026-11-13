@@ -16,6 +16,9 @@ NLI_MODEL = "cross-encoder/nli-distilroberta-base"  # RoBERTa-based, like the NL
 CANDIDATE_THRESHOLD = 0.5  # sim+nli: only pairs at least this similar are sent to NLI
 NLI_THRESHOLD = 0.5  # report a conflict if the contradiction probability >= this
 LAST_PAIRS_CHECKED = 0  # how many pairs the last run sent to the checker (for the evaluation)
+LARGE_TREE = 2000  # above this, even the cheap rules can't check ALL pairs (2,000 -> 2 million pairs)
+NLI_LIMIT_FROM = 200  # above this many requirements, sim+nli only checks each requirement's TOP_K closest partners
+TOP_K = 5  # how many most-similar partners per requirement are checked on big trees
 
 # ---------------------------------------------------------------------------
 # 1. Baseline: simple rules
@@ -123,22 +126,29 @@ def nli_contradiction(pairs):
 
 def detect_conflicts(requirements, method="heuristic", embedder="sbert"):
     """Return a list of Findings for pairs that look contradictory."""
-    from doorstop.reqsense.redundancy import similarity_matrix
+    from doorstop.reqsense.redundancy import similar_pairs
 
     uids = [u for u, _ in requirements]
     texts = [t for _, t in requirements]
     n = len(requirements)
-    all_pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+    total = n * (n - 1) // 2
+    large = n > LARGE_TREE
 
-    # Stage 1 (only for sim+nli): keep only pairs that talk about the same thing
+    # Stage 1: decide which pairs to check
     if method == "sim+nli":
-        sim = similarity_matrix(texts, embedder)
-        pairs = [(i, j) for i, j in all_pairs if sim[i][j] >= CANDIDATE_THRESHOLD]
+        # tiered design: only pairs that talk about the same thing go to the (slow) NLI model
+        top_k = TOP_K if n > NLI_LIMIT_FROM else None
+        pairs = [(i, j) for i, j, _ in similar_pairs(texts, embedder, CANDIDATE_THRESHOLD, top_k)]
+    elif method == "heuristic" and large:
+        # rules need shared words anyway, so on large trees pre-select word-similar pairs (TF-IDF)
+        pairs = [(i, j) for i, j, _ in similar_pairs(texts, "tfidf", 0.2, TOP_K)]
+    elif method == "nli" and large:
+        raise ValueError(f"'nli' checks all {total} pairs; use --conflict-method sim+nli for large trees")
     else:
-        pairs = all_pairs
+        pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
     global LAST_PAIRS_CHECKED  # pylint: disable=global-statement
     LAST_PAIRS_CHECKED = len(pairs)
-    print(f"ReqSense conflict ({method}): checking {len(pairs)} of {len(all_pairs)} pairs")
+    print(f"ReqSense conflict ({method}): checking {len(pairs)} of {total} pairs")
 
     findings = []
     if method == "heuristic":
