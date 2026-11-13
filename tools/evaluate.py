@@ -160,6 +160,8 @@ def eval_ambiguity(args):
 
 
 def eval_conflict(args):
+    """Thresholds of the NLI methods are tuned on an 80% dev split of the pairs; scores are reported
+    on the remaining 20% test split (which the threshold never saw), as planned in the proposal."""
     reqs = read_csv(args.data or "data/conflict_reqs.csv")
     gold_rows = read_csv(args.pairs)
     by_dataset = defaultdict(list)
@@ -167,41 +169,81 @@ def eval_conflict(args):
         by_dataset[r["dataset"]].append((r["id"], r["text"]))
     gold_pairs = {frozenset((r["id1"], r["id2"])) for r in gold_rows}
 
-    lines = ["# F3 conflict detection (all pairs within each dataset)", "",
-             "| Dataset | Method | P | R | F1 | Pairs checked | Time (s) |", "|---|---|---|---|---|---|---|"]
-    pooled = defaultdict(lambda: ([], []))  # method -> (gold labels, predictions) over all datasets
+    conflict.NLI_THRESHOLD = 0.0  # keep every scored pair; the threshold is chosen below
+    labels, dataset_of = [], []
+    scores = defaultdict(list)  # method -> one score per pair (0 = not flagged / not checked)
+    cost = defaultdict(lambda: [0, 0, 0.0])  # method -> [pairs checked, all pairs, seconds]
     for name, items in by_dataset.items():
         uids = [u for u, _ in items]
         n = len(items)
         all_pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
-        labels = [frozenset((uids[i], uids[j])) in gold_pairs for i, j in all_pairs]
+        labels += [frozenset((uids[i], uids[j])) in gold_pairs for i, j in all_pairs]
+        dataset_of += [name] * len(all_pairs)
         for method in args.methods:
             start = time.perf_counter()
             found = conflict.detect_conflicts(items, method, "sbert")
-            seconds = time.perf_counter() - start
+            cost[method][2] += time.perf_counter() - start
+            cost[method][0] += conflict.LAST_PAIRS_CHECKED
+            cost[method][1] += len(all_pairs)
             score_of = {frozenset(f.uids): f.score for f in found}
-            pred = [frozenset((uids[i], uids[j])) in score_of for i, j in all_pairs]
-            p, r, f = binary_f1(labels, pred)
-            checked = conflict.LAST_PAIRS_CHECKED
-            lines.append(f"| {name} | {method} | {p:.2f} | {r:.2f} | {f:.2f} | {checked}/{len(all_pairs)} | {seconds:.1f} |")
-            pooled[method][0].extend(labels)
-            pooled[method][1].extend(pred)
+            scores[method] += [score_of.get(frozenset((uids[i], uids[j])), 0.0) for i, j in all_pairs]
 
-    lines += ["", "Pooled over all 7 datasets:", "", "| Method | P | R | F1 [95% CI] |", "|---|---|---|---|"]
-    for m, (g, pr) in pooled.items():
-        g, pr = np.asarray(g), np.asarray(pr)
+    labels = np.asarray(labels)
+    dataset_of = np.asarray(dataset_of)
+    rng = np.random.default_rng(SEED)  # stratified 80/20 split of the pairs
+    dev = np.zeros(len(labels), bool)
+    for value in (True, False):
+        idx = np.flatnonzero(labels == value)
+        dev[rng.choice(idx, int(round(0.8 * len(idx))), replace=False)] = True
+    test = ~dev
+
+    grid = np.round(np.arange(0.50, 1.0, 0.01), 2)
+    lines = ["# F3 conflict detection (all pairs within each of the 7 datasets)", "",
+             f"{len(labels)} pairs, {int(labels.sum())} conflicts. NLI thresholds tuned on the 80% dev split "
+             f"({int(dev.sum())} pairs); scores below are on the 20% test split ({int(test.sum())} pairs).", "",
+             "| Method | Threshold | P | R | F1 [95% CI] | Pairs checked by the model | Time (s) |",
+             "|---|---|---|---|---|---|---|"]
+    preds = {}
+    for m in args.methods:
+        sc = np.asarray(scores[m])
+        if m == "heuristic":
+            thr = 0.0
+            pred = sc > 0
+        else:
+            dev_f1 = [binary_f1(labels[dev], sc[dev] >= t)[2] for t in grid]
+            thr = float(grid[int(np.argmax(dev_f1))])
+            pred = sc >= thr
+        preds[m] = pred
+        g, pr = labels[test], pred[test]
         f1 = lambda idx, g=g, pr=pr: binary_f1(g[idx], pr[idx])[2]  # noqa: E731
         p, r, f = binary_f1(g, pr)
-        lines.append(f"| {m} | {p:.2f} | {r:.2f} | {f:.2f} {bootstrap_ci(f1, len(g))} |")
-    if "heuristic" in pooled and len(pooled) > 1:
-        lines += ["", "Paired bootstrap vs heuristic baseline (F1): p = probability the method is NOT better", ""]
-        g, base = np.asarray(pooled["heuristic"][0]), np.asarray(pooled["heuristic"][1])
-        for m, (_, pr) in pooled.items():
+        checked, total, secs = cost[m]
+        lines.append(f"| {m} | {thr:.2f} | {p:.2f} | {r:.2f} | {f:.2f} {bootstrap_ci(f1, len(g))} "
+                     f"| {checked}/{total} ({100 * checked / total:.0f}%) | {secs:.1f} |")
+
+    if "heuristic" in preds and len(preds) > 1:
+        lines += ["", "Paired bootstrap on the test split vs heuristic baseline (F1): "
+                  "p = probability the method is NOT better", ""]
+        g, base = labels[test], preds["heuristic"][test]
+        for m, pred in preds.items():
             if m != "heuristic":
-                pr = np.asarray(pr)
+                pr = pred[test]
                 fa = lambda idx, pr=pr: binary_f1(g[idx], pr[idx])[2]  # noqa: E731
                 fb = lambda idx: binary_f1(g[idx], base[idx])[2]  # noqa: E731
                 lines.append(f"- {m} vs heuristic: p = {paired_test(fa, fb, len(g)):.3f}")
+
+    lines += ["", "Per dataset (all pairs, using the tuned thresholds above):", "",
+              "| Dataset | " + " | ".join(f"{m} F1" for m in args.methods) + " |", "|---|" + "---|" * len(args.methods)]
+    for name in by_dataset:
+        sel = dataset_of == name
+        lines.append(f"| {name} | " + " | ".join(f"{binary_f1(labels[sel], preds[m][sel])[2]:.2f}" for m in args.methods) + " |")
+
+    lines += ["", "Threshold sweep on ALL pairs (P / R / F1), for discussion only:", ""]
+    for m in args.methods:
+        if m != "heuristic":
+            sc = np.asarray(scores[m])
+            cells = [f"{t:.2f}: " + "/".join(f"{v:.2f}" for v in binary_f1(labels, sc >= t)) for t in (0.5, 0.7, 0.9, 0.95, 0.99)]
+            lines.append(f"- {m}: " + "; ".join(cells))
     save("conflict", lines)
 
 
