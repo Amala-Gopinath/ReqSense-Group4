@@ -14,7 +14,7 @@ from doorstop.reqsense.model import Finding
 
 NLI_MODEL = "cross-encoder/nli-distilroberta-base"  # RoBERTa-based, like the NLI model in [6]
 CANDIDATE_THRESHOLD = 0.5  # sim+nli: only pairs at least this similar are sent to NLI
-NLI_THRESHOLD = 0.5  # report a conflict if the contradiction probability >= this
+NLI_THRESHOLD = 0.99  # report a conflict if contradiction probability >= this (tuned on the 80% dev split)
 LAST_PAIRS_CHECKED = 0  # how many pairs the last run sent to the checker (for the evaluation)
 LARGE_TREE = 2000  # above this, even the cheap rules can't check ALL pairs (2,000 -> 2 million pairs)
 NLI_LIMIT_FROM = 200  # above this many requirements, sim+nli only checks each requirement's TOP_K closest partners

@@ -51,8 +51,8 @@ class FakeNLI:
                 ent = 0.9 if ("quick" in a and "measur" in b) or ("may" in a and "optional" in b) else 0.1
                 rows.append([0.05, ent, 0.95 - ent])
             else:  # conflict pair: contradiction if exactly one side says "not"/"delete"
-                c = 0.95 if (" not " in a or "delete" in a) != (" not " in b or "delete" in b) else 0.05
-                rows.append([c, 0.02, 0.98 - c])
+                c = 0.999 if (" not " in a or "delete" in a) != (" not " in b or "delete" in b) else 0.001
+                rows.append([c, 0.0005, 0.9995 - c])
         return np.asarray(rows)
 
 
